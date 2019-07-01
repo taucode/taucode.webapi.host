@@ -1,7 +1,7 @@
 ﻿using System;
 using TauCode.Domain.Identities;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Domain.Foos
+namespace TauCode.WebApi.Host.Test.App.Domain.Foos
 {
     [Serializable]
     public class FooId : IdBase

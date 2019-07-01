@@ -1,10 +1,9 @@
-﻿using Swashbuckle.Swagger.Annotations;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Web.Http;
 using TauCode.Cqrs.Queries;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.GetAllFoos;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetAllFoos;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.AppHost.Features.Foos.GetAllFoos
+namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetAllFoos
 {
     public class GetAllFoosController : ApiController
     {

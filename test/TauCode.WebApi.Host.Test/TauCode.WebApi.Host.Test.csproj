@@ -12,6 +12,8 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.2.0" />
     <PackageReference Include="NUnit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" />
+    <PackageReference Include="TauCode.Cqrs" Version="2.19.1-dev-0625-0001" />
+    <PackageReference Include="TauCode.Domain" Version="2.19.2-dev-0624-2248" />
   </ItemGroup>
 
 </Project>

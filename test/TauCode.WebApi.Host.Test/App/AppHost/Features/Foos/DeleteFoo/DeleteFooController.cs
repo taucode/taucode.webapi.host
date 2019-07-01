@@ -1,12 +1,10 @@
-﻿using Swashbuckle.Swagger.Annotations;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Web.Http;
 using TauCode.Cqrs.Commands;
-using TauCode.WebApi.Dto;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.DeleteFoo;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.DeleteFoo;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.AppHost.Features.Foos.DeleteFoo
+namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.DeleteFoo
 {
     public class DeleteFooController : ApiController
     {

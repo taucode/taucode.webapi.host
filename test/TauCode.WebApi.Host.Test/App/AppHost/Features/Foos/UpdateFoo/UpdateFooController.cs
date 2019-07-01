@@ -1,15 +1,13 @@
-﻿using Swashbuckle.Swagger.Annotations;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using System.Web.Http;
 using TauCode.Cqrs.Commands;
-using TauCode.WebApi.Dto;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.GetFooById;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.UpdateFoo;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos.Exceptions;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Domain.Foos.Exceptions;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.AppHost.Features.Foos.UpdateFoo
+namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
 {
     public class UpdateFooController : ApiController
     {

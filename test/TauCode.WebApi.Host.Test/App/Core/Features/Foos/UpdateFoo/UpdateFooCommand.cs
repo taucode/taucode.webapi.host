@@ -1,7 +1,7 @@
 ﻿using TauCode.Cqrs.Commands;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.UpdateFoo
+namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo
 {
     public class UpdateFooCommand : ICommand
     {

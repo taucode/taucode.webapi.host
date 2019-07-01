@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Domain.Foos.Exceptions
+namespace TauCode.WebApi.Host.Test.App.Domain.Foos.Exceptions
 {
     [Serializable]
     public class FooException : Exception

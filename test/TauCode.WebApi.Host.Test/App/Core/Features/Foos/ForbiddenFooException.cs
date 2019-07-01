@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos
+namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos
 {
     [Serializable]
     public class ForbiddenFooException : Exception

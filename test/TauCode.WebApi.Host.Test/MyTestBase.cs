@@ -5,7 +5,7 @@ using System.Net.Http;
 namespace TauCode.WebApi.Host.Test
 {
     [TestFixture]
-    public class MyTestBase
+    public abstract class MyTestBase
     {
         private MyFactory _factory;
         private HttpClient _client;

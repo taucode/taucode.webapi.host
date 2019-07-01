@@ -1,12 +1,11 @@
-﻿using FluentValidation;
-using Swashbuckle.Swagger.Annotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
-using System.Web.Http;
 using TauCode.Cqrs.Queries;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.GetFooById;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.AppHost.Features.Foos.GetFooById
+namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetFooById
 {
     public class GetFooByIdController : ApiController
     {

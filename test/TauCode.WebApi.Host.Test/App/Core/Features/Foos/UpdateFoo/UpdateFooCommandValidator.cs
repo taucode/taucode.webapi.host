@@ -1,11 +1,8 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
-using System.Collections.Generic;
-using TauCode.Utils.Extensions;
-using TauCode.Validation;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.UpdateFoo
+namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo
 {
     public class UpdateFooCommandValidator : AbstractValidator<UpdateFooCommand>, IParameterValidator
     {

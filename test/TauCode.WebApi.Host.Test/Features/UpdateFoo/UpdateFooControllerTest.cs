@@ -1,15 +1,14 @@
-﻿using Microsoft.Owin.Testing;
+﻿using Microsoft.AspNetCore.TestHost;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using TauCode.WebApi.Dto;
-using TauCode.WebApi.Host.Test.FooManagement.AppHost;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.GetFooById;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.UpdateFoo;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
-using TauCode.WebApi.Host.Test.FooManagement.Persistence.Repositories;
+using TauCode.WebApi.Host.Test.App.AppHost;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Persistence.Repositories;
 
 namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
 {

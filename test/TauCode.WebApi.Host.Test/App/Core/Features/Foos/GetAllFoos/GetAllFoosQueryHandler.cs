@@ -1,9 +1,8 @@
-﻿using NHibernate;
-using System.Linq;
+﻿using Microsoft.AspNetCore.Http;
 using TauCode.Cqrs.Queries;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.GetAllFoos
+namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetAllFoos
 {
     public class GetAllFoosQueryHandler : IQueryHandler<GetAllFoosQuery>
     {

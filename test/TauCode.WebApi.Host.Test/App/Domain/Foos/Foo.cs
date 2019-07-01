@@ -1,7 +1,7 @@
 ﻿using System;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos.Exceptions;
+using TauCode.WebApi.Host.Test.App.Domain.Foos.Exceptions;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Domain.Foos
+namespace TauCode.WebApi.Host.Test.App.Domain.Foos
 {
     public class Foo
     {

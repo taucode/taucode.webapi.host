@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TauCode.WebApi.Host.Test.TestApp
+namespace TauCode.WebApi.Host.Test.App.AppHost
 {
     public class Startup
     {

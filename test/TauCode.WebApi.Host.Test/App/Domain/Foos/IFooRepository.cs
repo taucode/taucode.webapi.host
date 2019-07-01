@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.Domain.Foos
+namespace TauCode.WebApi.Host.Test.App.Domain.Foos
 {
     public interface IFooRepository
     {

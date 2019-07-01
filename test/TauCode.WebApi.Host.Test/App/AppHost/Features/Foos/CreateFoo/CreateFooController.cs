@@ -1,17 +1,16 @@
-﻿using Swashbuckle.Swagger.Annotations;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net;
-using System.Web.Http;
 using TauCode.Cqrs.Commands;
-using TauCode.WebApi.Dto;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.CreateFoo;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos.GetFooById;
-using TauCode.WebApi.Host.Test.FooManagement.Domain.Foos.Exceptions;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.CreateFoo;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
+using TauCode.WebApi.Host.Test.App.Domain.Foos.Exceptions;
 
-namespace TauCode.WebApi.Host.Test.FooManagement.AppHost.Features.Foos.CreateFoo
+namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
 {
-    public class CreateFooController : ApiController
+    [ApiController]
+    public class CreateFooController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
         public CreateFooController(ICommandDispatcher commandDispatcher)
@@ -20,8 +19,8 @@ namespace TauCode.WebApi.Host.Test.FooManagement.AppHost.Features.Foos.CreateFoo
         }
         [SwaggerResponse(HttpStatusCode.NoContent, "Foo has been created")]
         [SwaggerResponse(HttpStatusCode.BadRequest, "Bad data for foo creation", typeof(ValidationErrorResponseDto))]
-        [Route("api/foos", Name = "CreateFoo")]
         [HttpPost]
+        [Route("api/foos", Name = "CreateFoo")]
         public IHttpActionResult CreateFoo([FromBody]CreateFooCommand command, [FromUri]string info = null)
         {
             if (info == "raise-validation-error")
