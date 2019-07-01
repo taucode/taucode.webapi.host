@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using System.Net;
 using TauCode.Cqrs.Commands;
@@ -13,15 +14,17 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
     public class CreateFooController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
+
         public CreateFooController(ICommandDispatcher commandDispatcher)
         {
             _commandDispatcher = commandDispatcher;
         }
-        [SwaggerResponse(HttpStatusCode.NoContent, "Foo has been created")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Bad data for foo creation", typeof(ValidationErrorResponseDto))]
+
+        [SwaggerResponse((int)HttpStatusCode.NoContent, "Foo has been created")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Bad data for foo creation", typeof(ValidationErrorResponseDto))]
         [HttpPost]
         [Route("api/foos", Name = "CreateFoo")]
-        public IHttpActionResult CreateFoo([FromBody]CreateFooCommand command, [FromUri]string info = null)
+        public IActionResult CreateFoo([FromBody]CreateFooCommand command, [FromQuery]string info = null)
         {
             if (info == "raise-validation-error")
             {

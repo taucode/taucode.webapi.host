@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
 using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
@@ -9,18 +10,21 @@ using TauCode.WebApi.Host.Test.App.Domain.Foos.Exceptions;
 
 namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
 {
-    public class UpdateFooController : ApiController
+    [ApiController]
+    public class UpdateFooController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
+
         public UpdateFooController(ICommandDispatcher commandDispatcher)
         {
             _commandDispatcher = commandDispatcher;
         }
-        [SwaggerResponse(HttpStatusCode.NoContent, "Foo has been updated")]
-        [SwaggerResponse(HttpStatusCode.BadRequest, "Bad data for foo updating", typeof(ValidationErrorResponseDto))]
+
+        [SwaggerResponse((int)HttpStatusCode.NoContent, "Foo has been updated")]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Bad data for foo updating", typeof(ValidationErrorResponseDto))]
         [Route("api/foos/{id}", Name = "UpdateFoo")]
         [HttpPut]
-        public IHttpActionResult UpdateFoo([FromUri]FooId id, [FromBody]UpdateFooCommand command, [FromUri]string info = null)
+        public IActionResult UpdateFoo([FromRoute]FooId id, [FromBody]UpdateFooCommand command, [FromQuery]string info = null)
         {
             command.Id = id;
 

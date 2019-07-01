@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentValidation;
+using System;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
 namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById

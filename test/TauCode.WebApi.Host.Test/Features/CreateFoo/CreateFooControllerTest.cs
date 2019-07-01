@@ -4,6 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
+using Microsoft.AspNetCore.TestHost;
+using TauCode.WebApi.Host.Test.App.AppHost;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.CreateFoo;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
+using TauCode.WebApi.Host.Test.App.Persistence.Repositories;
 
 namespace TauCode.WebApi.Host.Test.Features.CreateFoo
 {
@@ -18,7 +24,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
         public void OneTimeSetUp()
         {
             _repository = new MockFooRepository();
-            Startup.Repository = _repository;
+            //Startup.Repository = _repository;
 
             _server = TestServer.Create<Startup>();
             _client = _server.HttpClient;

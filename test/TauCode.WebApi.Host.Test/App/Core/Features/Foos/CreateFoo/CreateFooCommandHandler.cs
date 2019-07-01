@@ -1,6 +1,5 @@
 ﻿using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
-using TauCode.WebApi.Host.Test.FooManagement.Core.Features.Foos;
 
 namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos.CreateFoo
 {

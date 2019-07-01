@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
 

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using TauCode.Cqrs.Queries;
@@ -7,7 +8,8 @@ using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
 namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetFooById
 {
-    public class GetFooByIdController : ApiController
+    [ApiController]
+    public class GetFooByIdController : ControllerBase
     {
         private readonly IQueryRunner _queryRunner;
 
@@ -16,11 +18,11 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetFooById
             _queryRunner = queryRunner;
         }
 
-        [SwaggerResponse(HttpStatusCode.OK, "Get foo by ID", typeof(GetFooByIdQueryResult))]
-        [SwaggerResponse(HttpStatusCode.NotFound, "Foo not found")]
+        [SwaggerResponse((int)HttpStatusCode.OK, "Get foo by ID", typeof(GetFooByIdQueryResult))]
+        [SwaggerResponse((int)HttpStatusCode.NotFound, "Foo not found")]
         [HttpGet]
         [Route("api/foos/{id}", Name = "GetFooById")]
-        public IHttpActionResult GetFooById([FromUri]FooId id)
+        public IActionResult GetFooById([FromRoute]FooId id)
         {
             var query = new GetFooByIdQuery
             {
