@@ -4,43 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.TestHost;
-using TauCode.WebApi.Host.Test.App.AppHost;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.CreateFoo;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
-using TauCode.WebApi.Host.Test.App.Persistence.Repositories;
 
 namespace TauCode.WebApi.Host.Test.Features.CreateFoo
 {
     [TestFixture]
-    public class CreateFooControllerTest
+    public class CreateFooControllerTest : MyTestBase
     {
-        private TestServer _server;
-        private HttpClient _client;
-        private MockFooRepository _repository;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _repository = new MockFooRepository();
-            //Startup.Repository = _repository;
-
-            _server = TestServer.Create<Startup>();
-            _client = _server.HttpClient;
-        }
-
-        [SetUp]
-        public void SetUp()
-        {
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            _repository.Clear();
-        }
-        
         [Test]
         public void Create_QueryNothing_CreatesAndReturnsNoContent()
         {
@@ -52,11 +24,11 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos", command).Result;
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
-            Assert.That(_repository.GetAll(), Has.Count.EqualTo(1));
+            Assert.That(this.Repository.GetAll(), Has.Count.EqualTo(1));
         }
 
         [Test]
@@ -70,7 +42,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos?info=raise-validation-error", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos?info=raise-validation-error", command).Result;
             var json = response.Content.ReadAsStringAsync().Result;
             var validationError = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);
 
@@ -100,12 +72,12 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos?info=id", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos?info=id", command).Result;
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
             var id = response.Headers.GetValues("X-Instance-Id").Single();
-            var foo = _repository.GetById(new FooId(id));
+            var foo = this.Repository.GetById(new FooId(id));
             Assert.That(foo.Code, Is.EqualTo("usd"));
             Assert.That(foo.Name, Is.EqualTo("U.S. Dollar"));
         }
@@ -121,13 +93,13 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos?info=route", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos?info=route", command).Result;
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
             var id = response.Headers.GetValues("X-Instance-Id").Single();
             var route = response.Headers.GetValues("X-Route").Single();
-            var foo = _repository.GetById(new FooId(id));
+            var foo = this.Repository.GetById(new FooId(id));
             Assert.That(route, Is.EqualTo($"api/foos/{id}"));
             Assert.That(foo.Code, Is.EqualTo("usd"));
             Assert.That(foo.Name, Is.EqualTo("U.S. Dollar"));
@@ -144,7 +116,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos?info=instance", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos?info=instance", command).Result;
             var json = response.Content.ReadAsStringAsync().Result;
             var instance = JsonConvert.DeserializeObject<GetFooByIdQueryResult>(json);
 
@@ -152,7 +124,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
             var location = response.Headers.Location.ToString();
             var id = Regex.Match(location, @"/([\da-f-]+)$").Result("$1");
-            var foo = _repository.GetById(new FooId(id));
+            var foo = this.Repository.GetById(new FooId(id));
             var route = response.Headers.GetValues("X-Route").Single();
             var idFromHeader = response.Headers.GetValues("X-Instance-Id").Single();
 
@@ -180,7 +152,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var validationErrorResponse = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);
@@ -209,7 +181,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var errorResponse = JsonConvert.DeserializeObject<ErrorResponseDto>(json);
@@ -233,7 +205,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             };
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var errorResponse = JsonConvert.DeserializeObject<ErrorResponseDto>(json);
@@ -253,7 +225,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             CreateFooCommand command = null;
 
             // Act
-            var response = _client.PostAsJsonAsync("api/foos", command).Result;
+            var response = this.Client.PostAsJsonAsync("api/foos", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var validationErrorResponse = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);

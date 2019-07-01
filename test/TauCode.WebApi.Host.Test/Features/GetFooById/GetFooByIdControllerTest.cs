@@ -2,33 +2,13 @@
 using NUnit.Framework;
 using System;
 using System.Net;
-using System.Net.Http;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
-using TauCode.WebApi.Host.Test.App.Persistence.Repositories;
 
 namespace TauCode.WebApi.Host.Test.Features.GetFooById
 {
     [TestFixture]
-    public class GetFooByIdControllerTest
+    public class GetFooByIdControllerTest : MyTestBase
     {
-        private TestServer _server;
-        private HttpClient _client;
-        private MockFooRepository _repository;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _repository = new MockFooRepository();
-            Startup.Repository = _repository;
-
-            _server = TestServer.Create(builder =>
-            {
-                var startup = Startup.CreateStartup(true);
-                startup.Configuration(builder);
-            });
-            _client = _server.HttpClient;
-        }
-
         [SetUp]
         public void SetUp()
         {
@@ -37,7 +17,6 @@ namespace TauCode.WebApi.Host.Test.Features.GetFooById
         [TearDown]
         public void TearDown()
         {
-            _repository.Clear();
         }
         
         [Test]
@@ -47,7 +26,7 @@ namespace TauCode.WebApi.Host.Test.Features.GetFooById
             var badId = new FooId(Guid.Empty);
 
             // Act
-            var response = _client.GetAsync($"api/foos/{badId}").Result;
+            var response = this.Client.GetAsync($"api/foos/{badId}").Result;
             var json = response.Content.ReadAsStringAsync().Result;
             var validationErrorResponse = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);
             

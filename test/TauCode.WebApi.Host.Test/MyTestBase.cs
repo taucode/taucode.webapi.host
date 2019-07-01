@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.TestHost;
 using NUnit.Framework;
 using System.Net.Http;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
 namespace TauCode.WebApi.Host.Test
 {
@@ -8,24 +9,17 @@ namespace TauCode.WebApi.Host.Test
     public abstract class MyTestBase
     {
         private MyFactory _factory;
-        private HttpClient _client;
+        protected HttpClient Client { get; private set; }
+
+        protected IFooRepository Repository { get; private set; }
 
         [OneTimeSetUp]
-        public void OneTimeSetUp()
+        public void OneTimeSetUpBase()
         {
             _factory = new MyFactory();
-            _client = _factory
+            this.Client = _factory
                 .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot("test/TauCode.WebApi.Host.Test"))
                 .CreateClient();
-        }
-
-        [Test]
-        public void Wat()
-        {
-            var response = _client.GetAsync("api/foo").Result;
-            var result = response.Content.ReadAsStringAsync().Result;
-
-            var k = 3;
         }
     }
 }

@@ -1,49 +1,27 @@
-﻿using Microsoft.AspNetCore.TestHost;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using TauCode.WebApi.Host.Test.App.AppHost;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
-using TauCode.WebApi.Host.Test.App.Persistence.Repositories;
 
 namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
 {
     [TestFixture]
-    public class UpdateFooControllerTest
+    public class UpdateFooControllerTest : MyTestBase
     {
-        private TestServer _server;
-        private HttpClient _client;
-        private MockFooRepository _repository;
         private FooId _fooId;
-
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            _repository = new MockFooRepository();
-            Startup.Repository = _repository;
-
-            _server = TestServer.Create<Startup>();
-            _client = _server.HttpClient;
-        }
 
         [SetUp]
         public void SetUp()
         {
             var foo = new Foo("andy", "Andrey");
-            _repository.Save(foo);
+            this.Repository.Save(foo);
             _fooId = foo.Id;
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            _repository.Clear();
-        }
-        
         [Test]
         public void Update_QueryNothing_UpdatesAndReturnsNoContent()
         {
@@ -54,8 +32,8 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
-            var updatedFoo = _repository.GetById(_fooId);
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
+            var updatedFoo = this.Repository.GetById(_fooId);
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
@@ -73,13 +51,13 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}?info=id", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}?info=id", command).Result;
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
             var idString = response.Headers.GetValues("X-Instance-Id").Single();
             var id = new FooId(idString);
-            var updatedFoo = _repository.GetById(id);
+            var updatedFoo = this.Repository.GetById(id);
 
             Assert.That(id, Is.EqualTo(_fooId));
             Assert.That(updatedFoo.Code, Is.EqualTo("andy"));
@@ -96,14 +74,14 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}?info=route", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}?info=route", command).Result;
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
             var idString = response.Headers.GetValues("X-Instance-Id").Single();
             var id = new FooId(idString);
             var route = response.Headers.GetValues("X-Route").Single();
-            var updatedFoo = _repository.GetById(id);
+            var updatedFoo = this.Repository.GetById(id);
 
             Assert.That(id, Is.EqualTo(_fooId));
             Assert.That(route, Is.EqualTo($"api/foos/{id}"));
@@ -121,7 +99,7 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}?info=instance", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}?info=instance", command).Result;
             var json = response.Content.ReadAsStringAsync().Result;
             var instance = JsonConvert.DeserializeObject<GetFooByIdQueryResult>(json);
 
@@ -133,7 +111,7 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             Assert.That(route, Is.EqualTo($"api/foos/{_fooId}"));
             Assert.That(idFromHeader, Is.EqualTo(_fooId.ToString()));
 
-            var updatedFoo = _repository.GetById(_fooId);
+            var updatedFoo = this.Repository.GetById(_fooId);
 
             Assert.That(updatedFoo.Code, Is.EqualTo("andy"));
             Assert.That(updatedFoo.Name, Is.EqualTo("Undra"));
@@ -153,7 +131,7 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var validationErrorResponse = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);
@@ -182,7 +160,7 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var validationErrorResponse = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);
@@ -210,7 +188,7 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var errorResponse = JsonConvert.DeserializeObject<ErrorResponseDto>(json);
@@ -233,7 +211,7 @@ namespace TauCode.WebApi.Host.Test.Features.UpdateFoo
             };
 
             // Act
-            var response = _client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
+            var response = this.Client.PutAsJsonAsync($"api/foos/{_fooId}", command).Result;
             var subReason = response.Headers.GetValues("X-Sub-Reason").Single();
             var json = response.Content.ReadAsStringAsync().Result;
             var errorResponse = JsonConvert.DeserializeObject<ErrorResponseDto>(json);

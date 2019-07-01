@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using NHibernate;
 using System;
+using System.Linq;
 using TauCode.Cqrs.Queries;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
 

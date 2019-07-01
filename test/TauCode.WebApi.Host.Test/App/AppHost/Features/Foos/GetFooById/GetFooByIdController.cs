@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.ComponentModel.DataAnnotations;
 using TauCode.Cqrs.Queries;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
