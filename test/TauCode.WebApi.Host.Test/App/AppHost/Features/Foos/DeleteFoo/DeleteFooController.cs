@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.DeleteFoo;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
@@ -17,8 +17,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.DeleteFoo
             _commandDispatcher = commandDispatcher;
         }
 
-        [SwaggerResponse((int)HttpStatusCode.NoContent, "Foo has been deleted")]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Bad data for foo deletion", typeof(ValidationErrorResponseDto))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been deleted")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for foo deletion", typeof(ValidationErrorResponseDto))]
         [Route("api/foos/{id}", Name = "DeleteFoo")]
         [HttpDelete]
         public IActionResult DeleteFoo([FromRoute]FooId id)

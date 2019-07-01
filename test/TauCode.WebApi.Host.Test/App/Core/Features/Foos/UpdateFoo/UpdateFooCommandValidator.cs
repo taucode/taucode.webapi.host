@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using TauCode.Utils.Extensions;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
 namespace TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo

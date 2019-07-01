@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
@@ -20,8 +20,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
             _commandDispatcher = commandDispatcher;
         }
 
-        [SwaggerResponse((int)HttpStatusCode.NoContent, "Foo has been updated")]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Bad data for foo updating", typeof(ValidationErrorResponseDto))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been updated")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for foo updating", typeof(ValidationErrorResponseDto))]
         [Route("api/foos/{id}", Name = "UpdateFoo")]
         [HttpPut]
         public IActionResult UpdateFoo([FromRoute]FooId id, [FromBody]UpdateFooCommand command, [FromQuery]string info = null)

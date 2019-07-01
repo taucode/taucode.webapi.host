@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Net;
 using TauCode.Cqrs.Queries;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetAllFoos;
 
@@ -16,7 +16,7 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetAllFoos
             _queryRunner = queryRunner;
         }
 
-        [SwaggerResponse((int)HttpStatusCode.OK, "All foos", typeof(GetAllFoosQueryResult))]
+        [SwaggerResponse(StatusCodes.Status200OK, "All foos", typeof(GetAllFoosQueryResult))]
         [HttpGet]
         [Route("api/foos", Name = "GetAllFoos")]
         public IActionResult GetAllFoos()

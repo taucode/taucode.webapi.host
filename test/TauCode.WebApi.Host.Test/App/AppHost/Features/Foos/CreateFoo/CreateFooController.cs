@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
-using System.Net;
 using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.CreateFoo;
@@ -20,8 +20,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
             _commandDispatcher = commandDispatcher;
         }
 
-        [SwaggerResponse((int)HttpStatusCode.NoContent, "Foo has been created")]
-        [SwaggerResponse((int)HttpStatusCode.BadRequest, "Bad data for foo creation", typeof(ValidationErrorResponseDto))]
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been created")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for foo creation", typeof(ValidationErrorResponseDto))]
         [HttpPost]
         [Route("api/foos", Name = "CreateFoo")]
         public IActionResult CreateFoo([FromBody]CreateFooCommand command, [FromQuery]string info = null)
@@ -48,7 +48,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
             }
             catch (ForbiddenFooException e)
             {
-                return this.ForbiddenError(e);
+                var dd = Microsoft.AspNetCore.Http.StatusCodes.Status401Unauthorized;
+                return this.Forbid();
             }
 
             if (info == "id")
