@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using System;
 using TauCode.Cqrs.Commands;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
-using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
 using TauCode.WebApi.Host.Test.App.Domain.Foos.Exceptions;
@@ -38,7 +38,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
             }
             catch (ForbiddenFooException e)
             {
-                return this.ForbiddenError(e);
+                throw new NotImplementedException();
+                //return this.ForbiddenError(e);
             }
 
             if (info == "id")
@@ -54,7 +55,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
 
             if (info == "instance")
             {
-                return this.OkWithIdAndContent<GetFooByIdQueryResult>("GetFooById", new { id = id, });
+                throw new NotImplementedException();
+                //return this.OkWithIdAndContent<GetFooByIdQueryResult>("GetFooById", new { id = id, });
             }
 
             return this.NoContent();

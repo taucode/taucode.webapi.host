@@ -1,37 +1,42 @@
-﻿//using System.Net;
-//using System.Net.Http;
-//using System.Threading;
-//using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 
-//namespace TauCode.WebApi.Host.ActionResults
-//{
-//    public class NoContentWithIdResult : IHttpActionResult
-//    {
-//        private readonly HttpRequestMessage _request;
-//        private readonly string _id;
-//        private readonly string _route;
+namespace TauCode.WebApi.Host.ActionResults
+{
+    public class NoContentWithIdResult : StatusCodeResult
+    {
+        private readonly HttpRequest _request;
+        private readonly string _id;
+        private readonly string _route;
 
-//        public NoContentWithIdResult(HttpRequestMessage request, string id = null, string route = null)
-//        {
-//            _request = request;
-//            _id = id;
-//            _route = route;
-//        }
+        public NoContentWithIdResult(HttpRequest request, string id = null, string route = null)
+            : base(StatusCodes.Status204NoContent)
+        {
+            _request = request;
+            _id = id;
+            _route = route;
+        }
 
-//        public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
-//        {
-//            var response = _request.CreateResponse(HttpStatusCode.NoContent);
-//            if (_id != null)
-//            {
-//                response.Headers.Add(DtoHelper.InstanceIdHeaderName, _id);
-//            }
+        public override void ExecuteResult(ActionContext context)
+        {
+            throw new NotImplementedException();
+        }
 
-//            if (_route != null)
-//            {
-//                response.Headers.Add(DtoHelper.RouteHeaderName, _route);
-//            }
+        //public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
+        //{
+        //    var response = _request.CreateResponse(HttpStatusCode.NoContent);
+        //    if (_id != null)
+        //    {
+        //        response.Headers.Add(DtoHelper.InstanceIdHeaderName, _id);
+        //    }
 
-//            return Task.FromResult(response);
-//        }
-//    }
-//}
+        //    if (_route != null)
+        //    {
+        //        response.Headers.Add(DtoHelper.RouteHeaderName, _route);
+        //    }
+
+        //    return Task.FromResult(response);
+        //}
+    }
+}

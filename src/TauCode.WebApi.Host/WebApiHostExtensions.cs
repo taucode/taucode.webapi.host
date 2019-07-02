@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using TauCode.WebApi.Host.ActionResults;
@@ -8,29 +9,29 @@ namespace TauCode.WebApi.Host
 {
     public static class WebApiHostExtensions
     {
-        //#region Business Logic Error
+        #region Business Logic Error
 
-        //public static IHttpActionResult BusinessLogicError(this ApiController controller, string code, string message)
-        //{
-        //    return new BusinessLogicErrorResult(controller.Request, code, message);
-        //}
+        public static IActionResult BusinessLogicError(this ControllerBase controller, string code, string message)
+        {
+            return new BusinessLogicErrorResult(controller.Request, code, message);
+        }
 
-        //public static IHttpActionResult BusinessLogicError(this ApiController controller, string message)
-        //{
-        //    return new BusinessLogicErrorResult(controller.Request, message);
-        //}
+        public static IActionResult BusinessLogicError(this ControllerBase controller, string message)
+        {
+            return new BusinessLogicErrorResult(controller.Request, message);
+        }
 
-        //public static IHttpActionResult BusinessLogicError(this ApiController controller, string code, Exception exception)
-        //{
-        //    return BusinessLogicError(controller, code, exception.Message);
-        //}
+        public static IActionResult BusinessLogicError(this ControllerBase controller, string code, Exception exception)
+        {
+            return BusinessLogicError(controller, code, exception.Message);
+        }
 
-        //public static IHttpActionResult BusinessLogicError(this ApiController controller, Exception exception)
-        //{
-        //    return BusinessLogicError(controller, exception.Message);
-        //}
+        public static IActionResult BusinessLogicError(this ControllerBase controller, Exception exception)
+        {
+            return BusinessLogicError(controller, exception.Message);
+        }
 
-        //#endregion
+        #endregion
 
         //#region Forbidden Error
 
@@ -66,14 +67,14 @@ namespace TauCode.WebApi.Host
 
         //#endregion
 
-        //#region No Content With Id
+        #region No Content With Id
 
-        //public static IHttpActionResult NoContentWithId(this ApiController controller, string id = null, string route = null)
-        //{
-        //    return new NoContentWithIdResult(controller.Request, id, route);
-        //}
+        public static IActionResult NoContentWithId(this ControllerBase controller, string id = null, string route = null)
+        {
+            return new NoContentWithIdResult(controller.Request, id, route);
+        }
 
-        //#endregion
+        #endregion
 
         //#region Created With Content
 
@@ -106,26 +107,28 @@ namespace TauCode.WebApi.Host
         //    return new CreatedAtRouteNegotiatedContentResult<T>(routeName, routeValues, content, controller);
         //}
 
-        //public static IHttpActionResult CreatedWithIdAndContent<T>(
-        //    this ApiController controller,
-        //    string routeName,
-        //    object routeValues,
-        //    string idPropertyName = null)
-        //{
-        //    return controller.CreatedWithIdAndContent<T>(
-        //        routeName,
-        //        new HttpRouteValueDictionary(routeValues),
-        //        idPropertyName);
-        //}
+        public static IActionResult CreatedWithIdAndContent<T>(
+            this ControllerBase controller,
+            string routeName,
+            object routeValues,
+            string idPropertyName = null)
+        {
+            return controller.CreatedWithIdAndContent<T>(
+                routeName,
+                new RouteValueDictionary(routeValues),
+                idPropertyName);
+        }
 
-        //public static IHttpActionResult CreatedWithIdAndContent<T>(
-        //    this ApiController controller,
-        //    string routeName,
-        //    IDictionary<string, object> routeValues,
-        //    string idPropertyName = null)
-        //{
-        //    return new CreatedWithIdAndContentResult<T>(controller, routeName, routeValues, idPropertyName);
-        //}
+        public static IActionResult CreatedWithIdAndContent<T>(
+            this ControllerBase controller,
+            string routeName,
+            IDictionary<string, object> routeValues,
+            string idPropertyName = null)
+        {
+            throw new NotImplementedException();
+
+            //return new CreatedWithIdAndContentResult<T>(controller, routeName, routeValues, idPropertyName);
+        }
 
         //#endregion
 

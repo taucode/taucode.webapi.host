@@ -6,21 +6,22 @@ namespace TauCode.WebApi.Host.ActionResults
 {
     public class BusinessLogicErrorResult : StatusCodeResult
     {
-        //private readonly HttpRequestMessage _request;
-        //private readonly string _code;
-        //private readonly string _message;
+        private readonly HttpRequest _request;
+        private readonly string _code;
+        private readonly string _message;
 
-        //public BusinessLogicErrorResult(HttpRequestMessage request, string code, string message)
-        //{
-        //    _request = request ?? throw new ArgumentNullException(nameof(request));
-        //    _code = code;
-        //    _message = message;
-        //}
+        public BusinessLogicErrorResult(HttpRequest request, string code, string message)
+            : this()
+        {
+            _request = request ?? throw new ArgumentNullException(nameof(request));
+            _code = code;
+            _message = message;
+        }
 
-        //public BusinessLogicErrorResult(HttpRequestMessage request, string message)
-        //    : this(request, DtoHelper.BusinessLogicErrorCode, message)
-        //{
-        //}
+        public BusinessLogicErrorResult(HttpRequest request, string message)
+            : this(request, DtoHelper.BusinessLogicErrorCode, message)
+        {
+        }
 
         //public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         //{
@@ -31,7 +32,7 @@ namespace TauCode.WebApi.Host.ActionResults
         //    return Task.FromResult(response);
         //}
 
-        public BusinessLogicErrorResult()
+        private BusinessLogicErrorResult()
             : base(StatusCodes.Status409Conflict)
         {
         }
