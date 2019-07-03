@@ -9,6 +9,18 @@ namespace TauCode.WebApi.Host
 {
     public static class WebApiHostExtensions
     {
+        public static string SingleAction(this IUrlHelper urlHelper, string actionName, object values)
+        {
+            var url = urlHelper.Action(actionName, actionName, values);
+
+            if (!string.IsNullOrEmpty(url))
+            {
+                url = url.Substring(1);
+            }
+
+            return url;
+        }
+
         #region Business Logic Error
 
         public static IActionResult BusinessLogicError(this ControllerBase controller, string code, string message)
@@ -71,7 +83,7 @@ namespace TauCode.WebApi.Host
 
         public static IActionResult NoContentWithId(this ControllerBase controller, string id = null, string route = null)
         {
-            return new NoContentWithIdResult(controller.Request, id, route);
+            return new NoContentWithIdResult(/*controller.Request,*/ id, route);
         }
 
         #endregion

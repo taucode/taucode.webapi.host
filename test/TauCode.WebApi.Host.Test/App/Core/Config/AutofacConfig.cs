@@ -55,18 +55,19 @@ namespace TauCode.WebApi.Host.Test.App.Core.Config
                 .SingleInstance();
 
             containerBuilder
-                .Register(CreateSessionFromRepo)
+                .Register(c => CreateSessionFromRepo(c.Resolve<IFooRepository>()))
                 .As<ISession>()
                 .InstancePerLifetimeScope();
         }
 
-        private static ISession CreateSessionFromRepo(IComponentContext componentContext)
+        private static ISession CreateSessionFromRepo(IFooRepository fooRepository)
         {
             var mock = new Mock<ISession>();
 
             mock
                 .Setup(x => x.Query<Foo>())
-                .Returns(() => ((MockFooRepository)componentContext.Resolve<IFooRepository>())
+                .Returns(() => 
+                    fooRepository
                     .GetAll()
                     .AsQueryable());
 
