@@ -83,7 +83,8 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
 
                 var location = this.Url.SingleAction(nameof(GetFooByIdController.GetFooById), new { id = command.GetResult(), });
 
-                return this.Created(location, content);
+                throw new NotImplementedException(); // todo0000000000[ak]
+                return this.CreatedAtRoute(location, content);
             }
 
             return this.NoContent();

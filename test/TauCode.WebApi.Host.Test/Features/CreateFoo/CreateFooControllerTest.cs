@@ -125,11 +125,9 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             var location = response.Headers.Location.ToString();
             var id = Regex.Match(location, @"/([\da-f-]+)$").Result("$1");
             var foo = this.Repository.GetById(new FooId(id));
-            var route = response.Headers.GetValues("X-Route").Single();
             var idFromHeader = response.Headers.GetValues("X-Instance-Id").Single();
 
             Assert.That(id, Is.EqualTo(idFromHeader));
-            Assert.That(route, Is.EqualTo($"api/foos/{id}"));
 
             Assert.That(location, Does.EndWith($"api/foos/{id}"));
 
