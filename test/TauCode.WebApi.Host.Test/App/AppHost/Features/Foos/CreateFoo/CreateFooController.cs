@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Collections.Generic;
 using TauCode.Cqrs.Commands;
+using TauCode.Cqrs.Queries;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.CreateFoo;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.GetFooById;
@@ -14,10 +15,13 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
     public class CreateFooController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
+        //private readonly GetFooByIdController _getFooByIdController;
+        private readonly IQueryRunner _queryRunner;
 
-        public CreateFooController(ICommandDispatcher commandDispatcher)
+        public CreateFooController(ICommandDispatcher commandDispatcher, IQueryRunner queryRunner)
         {
             _commandDispatcher = commandDispatcher;
+            _queryRunner = queryRunner;
         }
 
         [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been created")]
@@ -59,8 +63,19 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.CreateFoo
 
             if (info == "route")
             {
-                var route = this.FormatSiblingRoute("GetFooById", new { id = command.GetResult(), });
-                return this.NoContentWithId(command.GetResult().ToString(), route);
+                //var route = this.FormatSiblingRoute("GetFooById", new { id = command.GetResult(), });
+                //return this.NoContentWithId(command.GetResult().ToString(), route);
+
+                var id = command.GetResult();
+
+                var query = new GetFooByIdQuery
+                {
+                    Id = id,
+                };
+
+                _queryRunner.Run(query);
+
+                return this.Ok(query.GetResult());
             }
 
             if (info == "instance")

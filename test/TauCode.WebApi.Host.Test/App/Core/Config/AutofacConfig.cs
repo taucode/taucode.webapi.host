@@ -1,4 +1,6 @@
 ﻿using Autofac;
+using Moq;
+using NHibernate;
 using System.Linq;
 using TauCode.Cqrs.Autofac;
 using TauCode.Cqrs.Commands;
@@ -51,6 +53,24 @@ namespace TauCode.WebApi.Host.Test.App.Core.Config
                 .RegisterType<MockFooRepository>()
                 .As<IFooRepository>()
                 .SingleInstance();
+
+            containerBuilder
+                .Register(CreateSessionFromRepo)
+                .As<ISession>()
+                .InstancePerLifetimeScope();
+        }
+
+        private static ISession CreateSessionFromRepo(IComponentContext componentContext)
+        {
+            var mock = new Mock<ISession>();
+
+            mock
+                .Setup(x => x.Query<Foo>())
+                .Returns(() => ((MockFooRepository)componentContext.Resolve<IFooRepository>())
+                    .GetAll()
+                    .AsQueryable());
+
+            return mock.Object;
         }
     }
 }

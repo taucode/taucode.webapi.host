@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System;
 using TauCode.Cqrs.Commands;
+using TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetFooById;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos;
 using TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo;
 using TauCode.WebApi.Host.Test.App.Domain.Foos;
@@ -14,10 +15,12 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
     public class UpdateFooController : ControllerBase
     {
         private readonly ICommandDispatcher _commandDispatcher;
+        private readonly GetFooByIdController _getFooByIdController;
 
-        public UpdateFooController(ICommandDispatcher commandDispatcher)
+        public UpdateFooController(ICommandDispatcher commandDispatcher, GetFooByIdController getFooByIdController)
         {
             _commandDispatcher = commandDispatcher;
+            _getFooByIdController = getFooByIdController;
         }
 
         [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been updated")]
@@ -49,8 +52,10 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
 
             if (info == "route")
             {
-                var route = this.FormatSiblingRoute("GetFooById", new { id = id, });
-                return this.NoContentWithId(id.ToString(), route);
+                //var route = this.FormatSiblingRoute("GetFooById", new { id = id, });
+                //return this.NoContentWithId(id.ToString(), route);
+
+                return _getFooByIdController.GetFooById(id);
             }
 
             if (info == "instance")

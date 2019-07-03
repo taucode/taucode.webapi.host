@@ -7,19 +7,19 @@ namespace TauCode.WebApi.Host
 {
     public static class InternalRouteHelper
     {
-        public static string FormatSiblingRoute(this ControllerBase controller, string routeName, object routeValues)
-        {
-            throw new NotImplementedException();
-            //IActionSelector ddeas;
+        //public static string FormatSiblingRoute(this ControllerBase controller, string routeName, object routeValues)
+        //{
+        //    throw new NotImplementedException();
+        //    //IActionSelector ddeas;
 
-            //var ddaaaoo = controller.Request;
+        //    //var ddaaaoo = controller.Request;
 
-            //var routeValuesDictionary = new RouteValueDictionary(routeValues);
-            //routeValuesDictionary.Add(HttpRoute.HttpRouteKey, true);
-            //var vp = controller.Request.GetConfiguration().Routes.GetVirtualPath(new HttpRequestMessage(), routeName, routeValuesDictionary);
+        //    //var routeValuesDictionary = new RouteValueDictionary(routeValues);
+        //    //routeValuesDictionary.Add(HttpRoute.HttpRouteKey, true);
+        //    //var vp = controller.Request.GetConfiguration().Routes.GetVirtualPath(new HttpRequestMessage(), routeName, routeValuesDictionary);
 
-            //return vp.VirtualPath.Substring(1); // skip leading '/'
-        }
+        //    //return vp.VirtualPath.Substring(1); // skip leading '/'
+        //}
 
         public static object InvokeRoute(HttpRequestMessage request, string routeName, IDictionary<string, object> routeValues)
         {
