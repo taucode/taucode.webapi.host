@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using System;
 using System.Collections.Generic;
 using TauCode.WebApi.Host.ActionResults;
@@ -81,9 +80,9 @@ namespace TauCode.WebApi.Host
 
         #region No Content With Id
 
-        public static IActionResult NoContentWithId(this ControllerBase controller, string id = null, string route = null)
+        public static IActionResult NoContentWithId(this ControllerBase controller, string id = null, string instanceLocation = null)
         {
-            return new NoContentWithIdResult(/*controller.Request,*/ id, route);
+            return new NoContentWithIdResult(id, instanceLocation);
         }
 
         #endregion
@@ -119,28 +118,27 @@ namespace TauCode.WebApi.Host
         //    return new CreatedAtRouteNegotiatedContentResult<T>(routeName, routeValues, content, controller);
         //}
 
-        public static IActionResult CreatedWithIdAndContent<T>(
-            this ControllerBase controller,
-            string routeName,
-            object routeValues,
-            string idPropertyName = null)
-        {
-            return controller.CreatedWithIdAndContent<T>(
-                routeName,
-                new RouteValueDictionary(routeValues),
-                idPropertyName);
-        }
+        //public static IActionResult CreatedWithIdAndContent<T>(
+        //    this ControllerBase controller,
+        //    string routeName,
+        //    object routeValues,
+        //    string idPropertyName = null)
+        //{
+        //    return controller.CreatedWithIdAndContent<T>(
+        //        routeName,
+        //        new RouteValueDictionary(routeValues),
+        //        idPropertyName);
+        //}
 
-        public static IActionResult CreatedWithIdAndContent<T>(
-            this ControllerBase controller,
-            string routeName,
-            IDictionary<string, object> routeValues,
-            string idPropertyName = null)
-        {
-            throw new NotImplementedException();
+        //public static IActionResult CreatedWithIdAndContent<T>(
+        //    this ControllerBase controller,
+        //    string routeName,
+        //    IDictionary<string, object> routeValues,
+        //    string idPropertyName = null)
+        //{
 
-            //return new CreatedWithIdAndContentResult<T>(controller, routeName, routeValues, idPropertyName);
-        }
+        //    return new CreatedWithIdAndContentResult<T>(controller, routeName, routeValues, idPropertyName);
+        //}
 
         //#endregion
 
@@ -205,14 +203,14 @@ namespace TauCode.WebApi.Host
             string message = null,
             IDictionary<string, ValidationFailureDto> failures = null)
         {
-            return new ValidationErrorResult(controller.Request, code, message, failures);
+            return new ValidationErrorResult(code, message, failures);
         }
 
         public static ValidationErrorResult ValidationError(
             this ControllerBase controller,
             ValidationErrorResponseDto validationError)
         {
-            return new ValidationErrorResult(controller.Request, validationError);
+            return new ValidationErrorResult(validationError);
         }
 
         public static ValidationErrorResult ValidationError(
@@ -235,7 +233,7 @@ namespace TauCode.WebApi.Host
                 failures.Add(error.PropertyName, new ValidationFailureDto(error.ErrorCode, error.ErrorMessage));
             }
 
-            return new ValidationErrorResult(controller.Request, message: ex.Message, failures: failures);
+            return new ValidationErrorResult(message: ex.Message, failures: failures);
         }
 
         //#endregion

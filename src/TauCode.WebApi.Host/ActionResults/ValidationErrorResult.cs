@@ -1,31 +1,28 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TauCode.WebApi.Host.ActionResults
 {
-    // todo: get rid of comments
-    public class ValidationErrorResult : StatusCodeResult
+    public class ValidationErrorResult : ContentResult
     {
-        private readonly HttpRequest _request;
         private readonly ValidationErrorResponseDto _validationError;
 
-        public ValidationErrorResult(HttpRequest request, ValidationErrorResponseDto validationError)
-        : this()
+        public ValidationErrorResult(ValidationErrorResponseDto validationError)
+            : this()
         {
-            _request = request ?? throw new ArgumentNullException(nameof(request));
             _validationError = validationError ?? throw new ArgumentNullException(nameof(validationError));
         }
 
         public ValidationErrorResult(
-            HttpRequest request,
             string code = null,
             string message = null,
             IDictionary<string, ValidationFailureDto> failures = null)
             : this()
         {
-            _request = request ?? throw new ArgumentNullException(nameof(request));
             _validationError = ValidationErrorResponseDto.Standard;
             if (code != null)
             {
@@ -43,24 +40,15 @@ namespace TauCode.WebApi.Host.ActionResults
             }
         }
 
-        //public ValidationErrorResponseDto ValidationError => _validationError;
-
-        //public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
-        //{
-        //    var response = _request.CreateResponse(HttpStatusCode.BadRequest, _validationError);
-        //    response.Headers.Add(DtoHelper.SubReasonHeaderName, DtoHelper.ValidationErrorSubReason);
-        //    return Task.FromResult(response);
-        //}
-
-        private ValidationErrorResult()
-            : base(StatusCodes.Status400BadRequest)
+        public ValidationErrorResult()
         {
+            this.StatusCode = StatusCodes.Status400BadRequest;
         }
 
-        public override void ExecuteResult(ActionContext context)
+        public override async Task ExecuteResultAsync(ActionContext context)
         {
-            throw new NotImplementedException();
-            //base.ExecuteResult(context);
+            this.Content = JsonConvert.SerializeObject(_validationError);
+            await base.ExecuteResultAsync(context);
         }
     }
 }

@@ -98,9 +98,9 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
             var id = response.Headers.GetValues("X-Instance-Id").Single();
-            var route = response.Headers.GetValues("X-Route").Single();
+            var instanceLocation = response.Headers.GetValues("X-Instance-Location").Single();
             var foo = this.Repository.GetById(new FooId(id));
-            Assert.That(route, Is.EqualTo($"api/foos/{id}"));
+            Assert.That(instanceLocation, Is.EqualTo($"api/foos/{id}"));
             Assert.That(foo.Code, Is.EqualTo("usd"));
             Assert.That(foo.Name, Is.EqualTo("U.S. Dollar"));
         }

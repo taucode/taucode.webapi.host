@@ -6,13 +6,13 @@ namespace TauCode.WebApi.Host.ActionResults
     public class NoContentWithIdResult : StatusCodeResult
     {
         private readonly string _id;
-        private readonly string _route;
+        private readonly string _instanceLocation;
 
-        public NoContentWithIdResult(string id = null, string route = null)
+        public NoContentWithIdResult(string id = null, string instanceLocation = null)
             : base(StatusCodes.Status204NoContent)
         {
             _id = id;
-            _route = route;
+            _instanceLocation = instanceLocation;
         }
 
         public override void ExecuteResult(ActionContext context)
@@ -24,9 +24,9 @@ namespace TauCode.WebApi.Host.ActionResults
                 context.HttpContext.Response.Headers.Add(DtoHelper.InstanceIdHeaderName, _id);
             }
 
-            if (_route != null)
+            if (_instanceLocation != null)
             {
-                context.HttpContext.Response.Headers.Add(DtoHelper.RouteHeaderName, _route);
+                context.HttpContext.Response.Headers.Add("X-Instance-Location", _instanceLocation);
             }
         }
     }
