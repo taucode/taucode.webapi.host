@@ -18,7 +18,7 @@ namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.DeleteFoo
         }
 
         [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been deleted")]
-        [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for foo deletion", typeof(ValidationErrorResponseDto))]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for foo deletion", typeof(ValidationErrorDto))]
         [Route("api/foos/{id}", Name = "DeleteFoo")]
         [HttpDelete]
         public IActionResult DeleteFoo([FromRoute]FooId id)

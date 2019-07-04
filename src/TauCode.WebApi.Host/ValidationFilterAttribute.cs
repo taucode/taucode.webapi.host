@@ -70,13 +70,13 @@ namespace TauCode.WebApi.Host
         {
             //var requestScope = actionContext.HttpContext.Request.GetDependencyScope();
 
-            ValidationErrorResponseDto validationErrorResponse = null;
+            ValidationErrorDto validationError= null;
 
             // Verify that the model state is valid before running the argument value specific validators.
             if (!actionContext.ModelState.IsValid)
             {
                 // Prepare the validation error response
-                validationErrorResponse = ValidationErrorResponseDto.Standard;
+                validationError = ValidationErrorDto.CreateStandard();
 
                 foreach (var fieldState in actionContext.ModelState)
                 {
@@ -98,7 +98,7 @@ namespace TauCode.WebApi.Host
                     }
 
                     // Add the error to the response, with an empty error code, since this is an unspecific error
-                    validationErrorResponse.WithValidationError(fieldName, null, errorMessage);
+                    validationError.AddFailure(fieldName, null, errorMessage);
                 }
             }
 
@@ -133,10 +133,12 @@ namespace TauCode.WebApi.Host
 
                 if (argumentValue == null)
                 {
-                    validationErrorResponse = new ValidationErrorResponseDto
-                    {
-                        Message = $"Argument '{argument./*ParameterName*/Name}' is null",
-                    };
+                    validationError = ValidationErrorDto.CreateStandard($"Argument '{argument./*ParameterName*/Name}' is null");
+
+                    //validationError = new ValidationErrorResponseDto
+                    //{
+                    //    Message = $"Argument '{argument./*ParameterName*/Name}' is null",
+                    //};
                     break;
                 }
 
@@ -149,9 +151,9 @@ namespace TauCode.WebApi.Host
                 }
 
                 // Create an validation error response, if it does not already exist
-                if (validationErrorResponse == null)
+                if (validationError == null)
                 {
-                    validationErrorResponse = ValidationErrorResponseDto.Standard;
+                    validationError = ValidationErrorDto.CreateStandard();
                 }
 
                 // Add every field specific error to validation error response
@@ -161,26 +163,29 @@ namespace TauCode.WebApi.Host
                     var propertyName = EnsurePropertyNameIsCamelCase(validationFailure.PropertyName);
 
                     // Only add the first validation message for a property
-                    if (!validationErrorResponse.Failures.ContainsKey(propertyName))
+                    if (!validationError.Failures.ContainsKey(propertyName))
                     {
-                        validationErrorResponse.WithValidationError(propertyName, validationFailure.ErrorCode, validationFailure.ErrorMessage);
+                        validationError.AddFailure(propertyName, validationFailure.ErrorCode, validationFailure.ErrorMessage);
                     }
                 }
             }
 
-            if (validationErrorResponse != null)
+            if (validationError != null)
             {
                 actionContext.Result = new ContentResult
                 {
                     StatusCode = StatusCodes.Status400BadRequest,
                     ContentType = "application/json",
-                    Content = JsonConvert.SerializeObject(validationErrorResponse),
+                    Content = JsonConvert.SerializeObject(validationError),
                 };
 
                 // Set the action response to a 400 Bad Request, with the validation error response as content
                 //actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, validationErrorResponse);
-                actionContext.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-                actionContext.HttpContext.Response.Headers.Add(DtoHelper.SubReasonHeaderName, DtoHelper.ValidationErrorSubReason);
+                //actionContext.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+                //actionContext.HttpContext.Response.Headers.Add(DtoHelper.SubReasonHeaderName, DtoHelper.ValidationErrorSubReason);
+                actionContext.HttpContext.Response.Headers.Add(DtoHelper.PayloadTypeHeaderName, DtoHelper.ValidationErrorPayloadType);
+
             }
         }
 

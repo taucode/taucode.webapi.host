@@ -22,7 +22,7 @@
     <PackageReference Include="TauCode.Domain" Version="2.19.2-dev-0624-2248" />
     <PackageReference Include="TauCode.Utils" Version="1.19.1" />
     <PackageReference Include="TauCode.Validation" Version="2.9.1-dev-0701-1747" />
-    <PackageReference Include="TauCode.WebApi" Version="2.19.1-dev-0107-0105" />
+    <PackageReference Include="TauCode.WebApi" Version="2.19.2-dev-0704-1143" />
   </ItemGroup>
 
   <ItemGroup>

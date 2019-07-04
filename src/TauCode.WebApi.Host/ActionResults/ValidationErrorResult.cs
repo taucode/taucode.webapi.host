@@ -9,9 +9,9 @@ namespace TauCode.WebApi.Host.ActionResults
 {
     public class ValidationErrorResult : ContentResult
     {
-        private readonly ValidationErrorResponseDto _validationError;
+        private readonly ValidationErrorDto _validationError;
 
-        public ValidationErrorResult(ValidationErrorResponseDto validationError)
+        public ValidationErrorResult(ValidationErrorDto validationError)
             : this()
         {
             _validationError = validationError ?? throw new ArgumentNullException(nameof(validationError));
@@ -23,7 +23,7 @@ namespace TauCode.WebApi.Host.ActionResults
             IDictionary<string, ValidationFailureDto> failures = null)
             : this()
         {
-            _validationError = ValidationErrorResponseDto.Standard;
+            _validationError = ValidationErrorDto.CreateStandard();
             if (code != null)
             {
                 _validationError.Code = code;

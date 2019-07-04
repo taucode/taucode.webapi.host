@@ -22,25 +22,25 @@ namespace TauCode.WebApi.Host
 
         #region Business Logic Error
 
-        public static IActionResult BusinessLogicError(this ControllerBase controller, string code, string message)
-        {
-            return new BusinessLogicErrorResult(controller.Request, code, message);
-        }
+        //public static IActionResult BusinessLogicError(this ControllerBase controller, string code, string message)
+        //{
+        //    return new BusinessLogicErrorResult(controller.Request, code, message);
+        //}
 
-        public static IActionResult BusinessLogicError(this ControllerBase controller, string message)
-        {
-            return new BusinessLogicErrorResult(controller.Request, message);
-        }
+        //public static IActionResult BusinessLogicError(this ControllerBase controller, string message)
+        //{
+        //    return new BusinessLogicErrorResult(controller.Request, message);
+        //}
 
-        public static IActionResult BusinessLogicError(this ControllerBase controller, string code, Exception exception)
-        {
-            return BusinessLogicError(controller, code, exception.Message);
-        }
+        //public static IActionResult BusinessLogicError(this ControllerBase controller, string code, Exception exception)
+        //{
+        //    return BusinessLogicError(controller, code, exception.Message);
+        //}
 
-        public static IActionResult BusinessLogicError(this ControllerBase controller, Exception exception)
-        {
-            return BusinessLogicError(controller, exception.Message);
-        }
+        //public static IActionResult BusinessLogicError(this ControllerBase controller, Exception exception)
+        //{
+        //    return BusinessLogicError(controller, exception.Message);
+        //}
 
         #endregion
 
@@ -80,10 +80,10 @@ namespace TauCode.WebApi.Host
 
         #region No Content With Id
 
-        public static IActionResult NoContentWithId(this ControllerBase controller, string id = null, string instanceLocation = null)
-        {
-            return new NoContentWithIdResult(id, instanceLocation);
-        }
+        //public static IActionResult NoContentWithId(this ControllerBase controller, string id = null, string instanceLocation = null)
+        //{
+        //    return new NoContentWithIdResult(id, instanceLocation);
+        //}
 
         #endregion
 
@@ -208,7 +208,7 @@ namespace TauCode.WebApi.Host
 
         public static ValidationErrorResult ValidationError(
             this ControllerBase controller,
-            ValidationErrorResponseDto validationError)
+            ValidationErrorDto validationError)
         {
             return new ValidationErrorResult(validationError);
         }
