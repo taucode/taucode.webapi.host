@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using FluentValidation;
 using Moq;
 using NHibernate;
 using System.Linq;
@@ -40,6 +41,14 @@ namespace TauCode.WebApi.Host.Test.App.Core.Config
                 .AsImplementedInterfaces()
                 .AsSelf()
                 .InstancePerLifetimeScope();
+
+            // register command handler validators
+            containerBuilder.RegisterAssemblyTypes(typeof(AutofacConfig).Assembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IValidator<>)))
+                .AsImplementedInterfaces()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
 
             // register command handlers
             containerBuilder.RegisterAssemblyTypes(typeof(AutofacConfig).Assembly)

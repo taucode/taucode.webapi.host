@@ -156,7 +156,7 @@ namespace TauCode.WebApi.Host.Test.Features.CreateFoo
             var validationErrorResponse = JsonConvert.DeserializeObject<ValidationErrorResponseDto>(json);
 
             // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest)  );
             Assert.That(subReason, Is.EqualTo("Validation"));
 
             Assert.That(validationErrorResponse.Code, Is.EqualTo("ValidationError"));
