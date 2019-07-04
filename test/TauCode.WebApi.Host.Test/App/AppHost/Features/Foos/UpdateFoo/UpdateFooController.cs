@@ -1,0 +1,69 @@
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
+using System;
+using TauCode.Cqrs.Commands;
+using TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.GetFooById;
+using TauCode.WebApi.Host.Test.App.Core.Features.Foos.UpdateFoo;
+using TauCode.WebApi.Host.Test.App.Domain.Foos;
+
+namespace TauCode.WebApi.Host.Test.App.AppHost.Features.Foos.UpdateFoo
+{
+    [ApiController]
+    public class UpdateFooController : ControllerBase
+    {
+        private readonly ICommandDispatcher _commandDispatcher;
+        private readonly GetFooByIdController _getFooByIdController;
+
+        public UpdateFooController(ICommandDispatcher commandDispatcher, GetFooByIdController getFooByIdController)
+        {
+            _commandDispatcher = commandDispatcher;
+            _getFooByIdController = getFooByIdController;
+        }
+
+        [SwaggerResponse(StatusCodes.Status204NoContent, "Foo has been updated")]
+        [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for foo updating", typeof(ValidationErrorDto))]
+        [Route("api/foos/{id}", Name = "UpdateFoo")]
+        [HttpPut]
+        public IActionResult UpdateFoo([FromRoute]FooId id, [FromBody]UpdateFooCommand command, [FromQuery]string info = null)
+        {
+            throw new NotImplementedException();
+            //command.Id = id;
+
+            //try
+            //{
+            //    _commandDispatcher.Dispatch(command);
+            //}
+            //catch (FooException e)
+            //{
+            //    return this.BusinessLogicError(e);
+            //}
+            //catch (ForbiddenFooException e)
+            //{
+            //    throw new NotImplementedException();
+            //    //return this.ForbiddenError(e);
+            //}
+
+            //if (info == "id")
+            //{
+            //    return this.NoContentWithId(id.ToString());
+            //}
+
+            //if (info == "route")
+            //{
+            //    //var route = this.FormatSiblingRoute("GetFooById", new { id = id, });
+            //    //return this.NoContentWithId(id.ToString(), route);
+
+            //    return _getFooByIdController.GetFooById(id);
+            //}
+
+            //if (info == "instance")
+            //{
+            //    throw new NotImplementedException();
+            //    //return this.OkWithIdAndContent<GetFooByIdQueryResult>("GetFooById", new { id = id, });
+            //}
+
+            //return this.NoContent();
+        }
+    }
+}
