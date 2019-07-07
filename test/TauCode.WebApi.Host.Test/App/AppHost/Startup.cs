@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TauCode.WebApi.Host.Test.App.Core.Config;
@@ -27,8 +26,6 @@ namespace TauCode.WebApi.Host.Test.App.AppHost
                     options.Filters.Add(new ValidationFilterAttribute(typeof(Startup).Assembly));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            IActionFilter dea;
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
