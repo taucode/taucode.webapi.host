@@ -10,7 +10,7 @@ using TauCode.WebApi.Host.Test.App.Domain.Foos;
 
 namespace TauCode.WebApi.Host.Test.Features.CreateFoo
 {
-    [Ignore("todo")]
+    //[Ignore("todo")]
     [TestFixture]
     public class CreateFooControllerTest : MyTestBase
     {
