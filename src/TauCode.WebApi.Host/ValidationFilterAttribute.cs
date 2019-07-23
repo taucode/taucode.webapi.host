@@ -42,7 +42,7 @@ namespace TauCode.WebApi.Host
 
             if (baseType == null)
             {
-                return false; // interface or something
+                return false;
             }
 
             if (baseType.IsGenericType)
@@ -68,9 +68,7 @@ namespace TauCode.WebApi.Host
 
         public override void OnActionExecuting(ActionExecutingContext actionContext)
         {
-            //var requestScope = actionContext.HttpContext.Request.GetDependencyScope();
-
-            ValidationErrorDto validationError= null;
+            ValidationErrorDto validationError = null;
 
             // Verify that the model state is valid before running the argument value specific validators.
             if (!actionContext.ModelState.IsValid)
@@ -87,7 +85,7 @@ namespace TauCode.WebApi.Host
                     var error = fieldState.Value.Errors.First();
 
                     // Create the error message
-                    var errorMessage = "Unknown error";
+                    var errorMessage = "Unknown error.";
                     if (!string.IsNullOrEmpty(error.ErrorMessage))
                     {
                         errorMessage = error.ErrorMessage;
@@ -113,7 +111,6 @@ namespace TauCode.WebApi.Host
                 }
 
                 // Get the registered validator
-                //var validator = (IValidator)requestScope.GetService(validatorType);
                 var validator = (IValidator)actionContext.HttpContext.RequestServices.GetService(validatorType);
 
                 if (validator == null)
@@ -129,16 +126,11 @@ namespace TauCode.WebApi.Host
                 }
 
                 // Validate the argument
-                var argumentValue = actionContext.ActionArguments[argument./*ParameterName*/Name];
+                var argumentValue = actionContext.ActionArguments[argument.Name];
 
                 if (argumentValue == null)
                 {
-                    validationError = ValidationErrorDto.CreateStandard($"Argument '{argument./*ParameterName*/Name}' is null");
-
-                    //validationError = new ValidationErrorResponseDto
-                    //{
-                    //    Message = $"Argument '{argument./*ParameterName*/Name}' is null",
-                    //};
+                    validationError = ValidationErrorDto.CreateStandard($"Argument '{argument.Name}' is null");
                     break;
                 }
 
@@ -180,10 +172,6 @@ namespace TauCode.WebApi.Host
                 };
 
                 // Set the action response to a 400 Bad Request, with the validation error response as content
-                //actionContext.Response = actionContext.Request.CreateResponse(HttpStatusCode.BadRequest, validationErrorResponse);
-                //actionContext.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
-
-                //actionContext.HttpContext.Response.Headers.Add(DtoHelper.SubReasonHeaderName, DtoHelper.ValidationErrorSubReason);
                 actionContext.HttpContext.Response.Headers.Add(DtoHelper.PayloadTypeHeaderName, DtoHelper.ValidationErrorPayloadType);
 
             }
