@@ -6,3 +6,8 @@
 ==========
     1. Code cleanup.
     2. IAutofacStartup interface.
+
+2019-08-12
+==========
+    Version: 2.19.1-dev-0812-0100
+    1. Added custom results with extensions.
