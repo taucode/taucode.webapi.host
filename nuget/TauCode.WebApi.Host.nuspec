@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.WebApi.Host</id>
-    <version>2.19.1-dev-0812-0100</version>
+    <version>2.19.1-dev-0812-1432</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,7 +15,6 @@
     <tags>taucode webapi host</tags>
     <dependencies>
       <dependency id="Autofac" version="4.9.2" />
-      <dependency id="FluentValidation" version="8.4.0" />
       <dependency id="Microsoft.AspNetCore.Mvc.Abstractions" version="2.2.0" />
       <dependency id="Microsoft.AspNetCore.Mvc.Core" version="2.2.5" />
       <dependency id="TauCode.Cqrs" version="2.19.1-dev-0625-0001" />
