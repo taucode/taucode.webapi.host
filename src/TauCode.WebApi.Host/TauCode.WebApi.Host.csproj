@@ -5,12 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.9.2" />
+    <PackageReference Include="Autofac" Version="4.9.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="TauCode.Cqrs" Version="2.19.1-dev-0625-0001" />
-    <PackageReference Include="TauCode.Validation" Version="2.9.1-dev-0701-1747" />
-    <PackageReference Include="TauCode.WebApi" Version="2.19.2-dev-0704-1143" />
+    <PackageReference Include="TauCode.Cqrs" Version="3.0.0" />
+    <PackageReference Include="TauCode.Validation" Version="3.0.0" />
+    <PackageReference Include="TauCode.WebApi" Version="3.0.0" />
   </ItemGroup>
 
 </Project>
