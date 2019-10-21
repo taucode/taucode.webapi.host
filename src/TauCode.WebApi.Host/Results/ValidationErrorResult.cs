@@ -10,13 +10,11 @@ namespace TauCode.WebApi.Host.Results
         public ValidationErrorResult(ValidationResult validationResult)
             : base(WebApiHostHelper.CreateValidationErrorDto(validationResult))
         {
-            // todo: check if validationResult is not null
         }
 
         public ValidationErrorResult(ValidationException validationException)
             : base(WebApiHostHelper.CreateValidationErrorDto(validationException))
         {
-            // todo: check if validationResult is not null
         }
 
         public ValidationErrorDto Error => (ValidationErrorDto)this.Value;

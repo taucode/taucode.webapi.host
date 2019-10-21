@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -9,6 +10,11 @@ namespace TauCode.WebApi.Host
     {
         internal static ValidationErrorDto CreateValidationErrorDto(string message, IEnumerable<ValidationFailure> failures)
         {
+            if (failures == null)
+            {
+                throw new ArgumentNullException(nameof(failures));
+            }
+
             var validationError = ValidationErrorDto.CreateStandard(message);
 
             foreach (var validationFailure in failures)
@@ -28,11 +34,21 @@ namespace TauCode.WebApi.Host
 
         internal static ValidationErrorDto CreateValidationErrorDto(ValidationResult validationResult)
         {
+            if (validationResult == null)
+            {
+                throw new ArgumentNullException(nameof(validationResult));
+            }
+
             return CreateValidationErrorDto(null, validationResult.Errors);
         }
 
         internal static ValidationErrorDto CreateValidationErrorDto(ValidationException validationException)
         {
+            if (validationException == null)
+            {
+                throw new ArgumentNullException(nameof(validationException));
+            }
+
             return CreateValidationErrorDto(validationException.Message, validationException.Errors);
         }
 
