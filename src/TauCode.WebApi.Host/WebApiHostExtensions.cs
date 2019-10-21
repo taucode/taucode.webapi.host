@@ -8,9 +8,20 @@ namespace TauCode.WebApi.Host
 {
     public static class WebApiHostExtensions
     {
-        public static IActionResult ConflictError(this ControllerBase controller, Exception e)
+        internal static ErrorDto ToErrorDto(this Exception exception, string code = null)
         {
-            return new ConflictErrorResult(e);
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
+            var errorDto = new ErrorDto(code ?? exception.GetType().FullName, exception.Message);
+            return errorDto;
+        }
+
+        public static IActionResult ConflictError(this ControllerBase controller, Exception ex)
+        {
+            return new ConflictErrorResult(ex);
         }
 
         public static IActionResult CreatedOk(this ControllerBase controller, string id, string url)
