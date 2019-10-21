@@ -6,14 +6,9 @@ namespace TauCode.WebApi.Host.Results
 {
     public class ConflictErrorResult : ConflictObjectResult
     {
-        public ConflictErrorResult(Exception exception)
-            : base(new ErrorDto
-            {
-                Code = exception.GetType().FullName,
-                Message = exception.Message,
-            })
+        public ConflictErrorResult(Exception exception, string code = null)
+            : base(exception.ToErrorDto(code))
         {
-            // todo: check if exception is not null
         }
 
         public ErrorDto Error => (ErrorDto)this.Value;
