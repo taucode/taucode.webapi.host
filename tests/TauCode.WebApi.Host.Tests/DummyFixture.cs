@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace TauCode.WebApi.Host.Test
+namespace TauCode.WebApi.Host.Tests
 {
     [TestFixture]
     public class DummyFixture
