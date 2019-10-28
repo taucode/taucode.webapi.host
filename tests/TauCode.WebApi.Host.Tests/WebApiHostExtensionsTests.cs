@@ -43,5 +43,19 @@ namespace TauCode.WebApi.Host.Tests
             Assert.That(error.Code, Is.EqualTo(typeof(InvalidOperationException).FullName));
             Assert.That(error.Message, Is.EqualTo("Wrong operation."));
         }
+
+        [Test]
+        public void DeletedNoContent_IdProvided_IdIsReturned()
+        {
+            // Arrange
+            var desiredId = "my-id-1488";
+
+            // Act
+            var result = _httpClient.DeleteAsync($"delete-with-id?desiredId={desiredId}").Result;
+
+            // Assert
+            Assert.That(result.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
+            Assert.That(result.Headers.GetValues("X-Deleted-Instance-Id").Single(), Is.EqualTo(desiredId));
+        }
     }
 }

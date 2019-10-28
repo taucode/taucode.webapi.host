@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.WebApi.Host</id>
-    <version>3.1-dev-2019-10-21-13-55</version>
+    <version>3.1</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,8 @@
     <projectUrl>http://taucode.com/</projectUrl>
     <description>TauCode Web API host support</description>
     <releaseNotes>
-      Release v3.0.
+      Version: v3.1
+      1. Simplified APIs
     </releaseNotes>
     <tags>taucode webapi host</tags>
     <dependencies>

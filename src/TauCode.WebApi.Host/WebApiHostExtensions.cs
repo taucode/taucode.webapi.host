@@ -24,29 +24,10 @@ namespace TauCode.WebApi.Host
             return new ConflictErrorResult(ex);
         }
 
-        public static IActionResult CreatedOk(this ControllerBase controller, string id, string url)
+        public static IActionResult DeletedNoContent(this ControllerBase controller, string id)
         {
-            return new CreatedOkResult(id, url);
-        }
-
-        public static IActionResult CreatedOk<T>(this ControllerBase controller, string id, string url, T content)
-        {
-            return new CreatedOkResult<T>(id, url, content);
-        }
-
-        public static IActionResult UpdatedOk(this ControllerBase controller, string id, string url)
-        {
-            return new UpdatedOkResult(id, url);
-        }
-
-        public static IActionResult UpdatedOk<T>(this ControllerBase controller, string id, string url, T content)
-        {
-            return new UpdatedOkResult<T>(id, url, content);
-        }
-
-        public static IActionResult DeletedOk(this ControllerBase controller, string id)
-        {
-            return new DeletedOkResult(id);
+            controller.Response.Headers.Add(DtoHelper.DeletedInstanceIdHeaderName, id);
+            return controller.NoContent();
         }
 
         public static IActionResult NotFoundError(this ControllerBase controller, Exception ex)
