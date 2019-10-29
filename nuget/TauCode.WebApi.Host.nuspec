@@ -10,8 +10,8 @@
     <projectUrl>http://taucode.com/</projectUrl>
     <description>TauCode Web API host support</description>
     <releaseNotes>
-      Version: 3.1
-      1. Release v3.1.
+      Version: 3.2
+      1. Release v3.2.
     </releaseNotes>
     <tags>taucode webapi host</tags>
     <dependencies>
