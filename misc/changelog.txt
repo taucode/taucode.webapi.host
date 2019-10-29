@@ -21,3 +21,8 @@
 ==========
     Version: v3.1
     1. Simplified APIs
+
+2019-10-29
+==========
+    Version: 3.2
+    1. Release v3.2.
