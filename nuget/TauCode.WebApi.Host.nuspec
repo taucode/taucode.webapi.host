@@ -10,16 +10,16 @@
     <projectUrl>http://taucode.com/</projectUrl>
     <description>TauCode Web API host support</description>
     <releaseNotes>
-      Version: v3.1
-      1. Simplified APIs
+      Version: 3.2
+      1. Release v3.2.
     </releaseNotes>
     <tags>taucode webapi host</tags>
     <dependencies>
       <dependency id="Microsoft.AspNetCore.Mvc.Abstractions" version="2.2.0" />
       <dependency id="Microsoft.AspNetCore.Mvc.Core" version="2.2.5" />
-      <dependency id="TauCode.Cqrs" version="3.0" />
+      <dependency id="TauCode.Cqrs" version="3.0.1" />
       <dependency id="TauCode.Validation" version="3.0" />
-      <dependency id="TauCode.WebApi" version="3.0" />
+      <dependency id="TauCode.WebApi" version="3.1" />
     </dependencies>
   </metadata>
   <files>
