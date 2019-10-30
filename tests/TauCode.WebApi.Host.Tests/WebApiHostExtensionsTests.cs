@@ -16,14 +16,11 @@ namespace TauCode.WebApi.Host.Tests
         {
             var factory = new Factory();
             _httpClient = factory.CreateClient();
-
         }
-
-
+        
         [SetUp]
         public void SetUp()
         {
-
         }
 
         [Test]
