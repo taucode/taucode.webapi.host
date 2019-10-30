@@ -19,14 +19,14 @@ namespace TauCode.WebApi.Host
 
         #region Polymorph
 
-        protected abstract Assembly GetCoreAssembly();
+        protected abstract Assembly GetValidatorsAssembly();
 
         protected virtual void AddMvcImpl(IServiceCollection services)
         {
             services
                 .AddMvc(options =>
                 {
-                    options.Filters.Add(new ValidationFilterAttribute(this.GetCoreAssembly()));
+                    options.Filters.Add(new ValidationFilterAttribute(this.GetValidatorsAssembly()));
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -45,6 +45,12 @@ namespace TauCode.WebApi.Host
             _containerBuilder.Populate(services);
 
             this.ConfigureServicesImpl();
+
+            // add self as a service.
+            _containerBuilder
+                .RegisterInstance(this)
+                .As<IAppStartup>()
+                .SingleInstance();
 
             this.Container = _containerBuilder.Build();
             _containerBuilder = null; // no more registrations

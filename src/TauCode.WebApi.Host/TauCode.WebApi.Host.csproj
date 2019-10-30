@@ -9,8 +9,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
     <PackageReference Include="TauCode.Cqrs" Version="3.0.1" />
+    <PackageReference Include="TauCode.Cqrs.Autofac" Version="3.0.0" />
+    <PackageReference Include="TauCode.Domain" Version="3.0.0" />
     <PackageReference Include="TauCode.Validation" Version="3.0.0" />
     <PackageReference Include="TauCode.WebApi" Version="3.1.0" />
   </ItemGroup>
