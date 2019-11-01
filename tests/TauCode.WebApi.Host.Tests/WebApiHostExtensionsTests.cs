@@ -7,6 +7,7 @@ using System.Net.Http;
 namespace TauCode.WebApi.Host.Tests
 {
     [TestFixture]
+    // todo: remove/incorporate
     public class WebApiHostExtensionsTests
     {
         private HttpClient _httpClient;
@@ -14,7 +15,7 @@ namespace TauCode.WebApi.Host.Tests
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            var factory = new Factory();
+            var factory = new TestFactory();
             _httpClient = factory.CreateClient();
         }
         
