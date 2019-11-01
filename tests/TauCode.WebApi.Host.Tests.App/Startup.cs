@@ -1,17 +1,20 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using TauCode.Cqrs.NHibernate;
+using TauCode.WebApi.Host.Tests.Core;
 
 namespace TauCode.WebApi.Host.Tests.App
 {
-    public class Startup
+    public class Startup : AppStartupBase
     {
-        public void ConfigureServices(IServiceCollection services)
+        protected override Assembly GetValidatorsAssembly() => typeof(CoreBeacon).Assembly;
+
+        protected override void ConfigureContainerBuilder()
         {
-            services.AddMvc();
+            this.AddCqrs(typeof(CoreBeacon).Assembly, typeof(TransactionalCommandHandlerDecorator<>)); // todo: what if null? add another AppSimple!
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public override void Configure(IApplicationBuilder app)
         {
             app.UseMvcWithDefaultRoute();
         }

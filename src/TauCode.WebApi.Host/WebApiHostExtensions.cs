@@ -7,17 +7,6 @@ namespace TauCode.WebApi.Host
 {
     public static class WebApiHostExtensions
     {
-        internal static ErrorDto ToErrorDto(this Exception exception, string code = null)
-        {
-            if (exception == null)
-            {
-                throw new ArgumentNullException(nameof(exception));
-            }
-
-            var errorDto = new ErrorDto(code ?? exception.GetType().FullName, exception.Message);
-            return errorDto;
-        }
-
         public static IActionResult ConflictError(this ControllerBase controller, Exception ex)
         {
             controller.Response.Headers.Add(DtoHelper.PayloadTypeHeaderName, DtoHelper.ErrorPayloadType);
