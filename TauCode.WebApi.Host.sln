@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.WebApi.Host.Tests.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.WebApi.Host.Tests.Persistence", "tests\TauCode.WebApi.Host.Tests.Persistence\TauCode.WebApi.Host.Tests.Persistence.csproj", "{233A3700-BB89-4A3B-A88A-88C5E2B560AC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TauCode.WebApi.Host.Tests.DbMigrations", "tests\TauCode.WebApi.Host.Tests.DbMigrations\TauCode.WebApi.Host.Tests.DbMigrations.csproj", "{7D10780D-97BA-4BC7-9630-4C18044C8D84}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{233A3700-BB89-4A3B-A88A-88C5E2B560AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{233A3700-BB89-4A3B-A88A-88C5E2B560AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{233A3700-BB89-4A3B-A88A-88C5E2B560AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D10780D-97BA-4BC7-9630-4C18044C8D84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D10780D-97BA-4BC7-9630-4C18044C8D84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D10780D-97BA-4BC7-9630-4C18044C8D84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D10780D-97BA-4BC7-9630-4C18044C8D84}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{3A39898C-C77E-4390-902A-FE7656BC5A0D} = {495880DC-CA1A-46DC-B031-9FCF2FDA5783}
 		{217AB2D4-734D-44F6-BED5-8A4F16DA48BE} = {495880DC-CA1A-46DC-B031-9FCF2FDA5783}
 		{233A3700-BB89-4A3B-A88A-88C5E2B560AC} = {495880DC-CA1A-46DC-B031-9FCF2FDA5783}
+		{7D10780D-97BA-4BC7-9630-4C18044C8D84} = {495880DC-CA1A-46DC-B031-9FCF2FDA5783}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90C28557-3745-409F-A6BF-F0B1C38FB78F}
