@@ -59,7 +59,7 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Currencies
         }
 
         [Test]
-        public void CreateCurrency_CodeAlreadyExists_ReturnsBusinessLogicErrorResponse()
+        public void CreateCurrency_CodeAlreadyExists_ReturnsConflictErrorResponse()
         {
             // Arrange
             var command = this.CreateCommand();

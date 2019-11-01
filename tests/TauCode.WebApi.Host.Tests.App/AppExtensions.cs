@@ -12,7 +12,7 @@ namespace TauCode.WebApi.Host.Tests.App
 {
     public static class AppExtensions
     {
-        private static ISessionFactory BuildSessionFactory(Configuration configuration, Assembly mappingsAssembly)
+        public static ISessionFactory BuildSessionFactory(Configuration configuration, Assembly mappingsAssembly)
         {
             return Fluently.Configure(configuration)
                 .Mappings(m => m.FluentMappings.AddFromAssembly(mappingsAssembly)

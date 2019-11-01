@@ -11,20 +11,22 @@ namespace TauCode.WebApi.Host.Tests.App
 {
     public class Startup : AppStartupBase
     {
+        public string ConnectionString { get; private set; }
+
         protected virtual Configuration CreateConfiguration()
         {
             var filePath = FileExtensions.CreateTempFilePath(extension:".sqlite");
             File.WriteAllBytes(filePath, new byte[] { });
 
-            var connectionString = $@"Data Source={filePath};Version=3;";
+            this.ConnectionString = $@"Data Source={filePath};Version=3;";
 
-            var nhibernateConfiguration = new Configuration();
-            nhibernateConfiguration.Properties.Add("connection.connection_string", connectionString);
-            nhibernateConfiguration.Properties.Add("connection.driver_class", "NHibernate.Driver.SQLite20Driver");
-            nhibernateConfiguration.Properties.Add("connection.provider", "NHibernate.Connection.DriverConnectionProvider");
-            nhibernateConfiguration.Properties.Add("dialect", "NHibernate.Dialect.SQLiteDialect");
+            var configuration = new Configuration();
+            configuration.Properties.Add("connection.connection_string", this.ConnectionString);
+            configuration.Properties.Add("connection.driver_class", "NHibernate.Driver.SQLite20Driver");
+            configuration.Properties.Add("connection.provider", "NHibernate.Connection.DriverConnectionProvider");
+            configuration.Properties.Add("dialect", "NHibernate.Dialect.SQLiteDialect");
 
-            return nhibernateConfiguration;
+            return configuration;
         }
 
         protected override Assembly GetValidatorsAssembly() => typeof(CoreBeacon).Assembly;
