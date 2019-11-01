@@ -21,7 +21,7 @@ namespace TauCode.WebApi.Host
 
         protected abstract Assembly GetValidatorsAssembly();
 
-        protected virtual void AddMvcImpl(IServiceCollection services)
+        protected virtual void ConfigureServicesImpl(IServiceCollection services)
         {
             services
                 .AddMvc(options =>
@@ -31,7 +31,7 @@ namespace TauCode.WebApi.Host
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
-        protected abstract void ConfigureServicesImpl();
+        protected abstract void ConfigureContainerBuilder();
 
         #endregion
 
@@ -39,12 +39,12 @@ namespace TauCode.WebApi.Host
 
         public virtual IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            this.AddMvcImpl(services);
+            this.ConfigureServicesImpl(services);
 
             _containerBuilder = new ContainerBuilder();
             _containerBuilder.Populate(services);
 
-            this.ConfigureServicesImpl();
+            this.ConfigureContainerBuilder();
 
             // add self as a service.
             _containerBuilder
