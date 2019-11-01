@@ -1,9 +1,8 @@
 ﻿using Autofac;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using NHibernate;
 using NUnit.Framework;
-using System;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 
@@ -28,24 +27,18 @@ namespace TauCode.WebApi.Host.Tests.App
         [OneTimeSetUp]
         public void OneTimeSetUpBase()
         {
-            //this.Factory = this.CreateFactory();
-            this.Factory = new TestFactory();
-            //this.HttpClient = this.CreateClient();
-            this.HttpClient = this.Factory
-                .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"tests\TauCode.Apps.Testsush"))
-                .CreateClient();
+            Inflector.Inflector.SetDefaultCultureFunc = () => new CultureInfo("en-US");
 
-            //throw new NotImplementedException();
+            this.Factory = new TestFactory();
+
+            this.HttpClient = this.Factory
+                .WithWebHostBuilder(builder => builder.UseSolutionRelativeContentRoot(@"tests\TauCode.WebApi.Host.Tests"))
+                .CreateClient();
 
             var testServer = this.Factory.Factories.Single().Server;
 
-            //var startup = (TestStartup)testServer.Host.Services.GetService(typeof(IStartup));
-            //this.Container = startup.Container;
-
-            throw new NotImplementedException();
-
-            //var autofacStartup = (IAutofacStartup)testServer.Host.Services.GetService(typeof(IAutofacStartup));
-            //this.Container = autofacStartup.ApplicationContainer;
+            var startup = (Startup)testServer.Host.Services.GetService(typeof(IAppStartup));
+            this.Container = startup.Container;
         }
 
         [OneTimeTearDown]

@@ -10,7 +10,7 @@ using TauCode.Domain.Identities;
 
 namespace TauCode.WebApi.Host.Tests
 {
-    internal static class Extensions
+    internal static class TestExtensions
     {
         internal static T ReadAs<T>(this HttpResponseMessage message)
         {
