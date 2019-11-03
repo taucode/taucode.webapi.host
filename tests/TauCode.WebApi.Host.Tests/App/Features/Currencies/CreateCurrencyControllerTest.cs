@@ -25,8 +25,7 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Currencies
 
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
-            Assert.That(response.Headers.Location.ToString(), Is.EqualTo("waat"));
-            Assert.That(response.Headers.GetValues("X-Payload-Type").Single(), Is.EqualTo("CreateResult"));
+            Assert.That(response.Headers.Location.ToString(), Is.EqualTo($"/api/currencies/by-prop?id={id}"));
 
             Assert.That(queryResult.Code, Is.EqualTo(command.Code));
             Assert.That(queryResult.Name, Is.EqualTo(command.Name));

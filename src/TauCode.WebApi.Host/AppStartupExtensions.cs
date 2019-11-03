@@ -44,6 +44,12 @@ namespace TauCode.WebApi.Host
                 typeof(ICommandHandler<>),
                 "commandHandler");
 
+            // command validator source
+            appStartup.ContainerBuilder
+                .RegisterInstance(new CommandValidatorSource(cqrsAssembly))
+                .As<ICommandValidatorSource>()
+                .SingleInstance();
+
             // validators
             appStartup.ContainerBuilder
                 .RegisterAssemblyTypes(cqrsAssembly)
@@ -73,6 +79,13 @@ namespace TauCode.WebApi.Host
                 .AsImplementedInterfaces()
                 .AsSelf()
                 .InstancePerLifetimeScope();
+
+            // query validator source
+            appStartup.ContainerBuilder
+                .RegisterInstance(new QueryValidatorSource(cqrsAssembly))
+                .As<IQueryValidatorSource>()
+                .SingleInstance();
+
 
             return appStartup;
         }

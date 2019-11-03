@@ -29,7 +29,7 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Currencies
             // Assert
             Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
 
-            var deletedId = response.Headers.GetValues("wat").Single();
+            var deletedId = response.Headers.GetValues("X-Deleted-Instance-Id").Single();
             
             Assert.That(deletedId, Is.EqualTo(id.ToString()));
 

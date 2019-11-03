@@ -6,7 +6,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using System;
 using System.Reflection;
-using TauCode.Domain.NHibernate.Conventions;
+using TauCode.WebApi.Host.Tests.App.NHibernateStuff;
 
 namespace TauCode.WebApi.Host.Tests.App
 {
@@ -25,7 +25,7 @@ namespace TauCode.WebApi.Host.Tests.App
                     .Conventions.Add(LazyLoad.Never())
                     .Conventions.Add(Table.Is(x => x.TableName.Underscore().ToUpper()))
                     .Conventions.Add(ConventionBuilder.Property.Always(x => x.Column(x.Property.Name.Underscore())))
-                    .Conventions.Add(new IdUserTypeConvention())
+                    .Conventions.Add(new MyIdUserTypeConvention())
                 )
                 .BuildSessionFactory();
         }

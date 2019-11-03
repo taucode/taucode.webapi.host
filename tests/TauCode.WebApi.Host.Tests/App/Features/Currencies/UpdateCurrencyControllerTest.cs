@@ -25,7 +25,7 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Currencies
             var queryResult = response.ReadAs<GetCurrencyQueryResult>();
 
             // Assert
-            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Created));
+            Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.OK));
 
             Assert.That(queryResult.Id, Is.EqualTo(id));
             Assert.That(queryResult.Code, Is.EqualTo("ZLT"));
