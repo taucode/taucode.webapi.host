@@ -8,6 +8,17 @@ namespace TauCode.WebApi.Host
 {
     internal static class WebApiHostHelper
     {
+        internal static ErrorDto ToErrorDto(this Exception exception, string code = null)
+        {
+            if (exception == null)
+            {
+                throw new ArgumentNullException(nameof(exception));
+            }
+
+            var errorDto = new ErrorDto(code ?? exception.GetType().FullName, exception.Message);
+            return errorDto;
+        }
+
         internal static ValidationErrorDto CreateValidationErrorDto(string message, IEnumerable<ValidationFailure> failures)
         {
             if (failures == null)
