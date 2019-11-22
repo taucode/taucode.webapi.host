@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 
-namespace TauCode.WebApi.Host.Tests.App.Features.Misc.ReturnConflictError
+namespace TauCode.WebApi.Host.Tests.App.Features.Misc
 {
     [ApiController]
     public class ReturnConflictErrorController : ControllerBase
@@ -10,7 +10,8 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Misc.ReturnConflictError
         [Route("api/misc/conflict")]
         public IActionResult ReturnConflictError()
         {
-            throw new NotImplementedException();
+            var ex = new InvalidOperationException("Bad action!");
+            return this.ConflictError(ex);
         }
     }
 }

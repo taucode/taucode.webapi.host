@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Globalization;
 
-namespace TauCode.WebApi.Host.Tests.App.Features.Misc.ReturnNotFoundError
+namespace TauCode.WebApi.Host.Tests.App.Features.Misc
 {
     [ApiController]
     public class ReturnNotFoundErrorController : ControllerBase
@@ -10,7 +10,8 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Misc.ReturnNotFoundError
         [Route("api/misc/not-found")]
         public IActionResult ReturnNotFoundError()
         {
-            throw new NotImplementedException();
+            var ex = new CultureNotFoundException("Bez kultur net multur.");
+            return this.NotFoundError(ex);
         }
     }
 }

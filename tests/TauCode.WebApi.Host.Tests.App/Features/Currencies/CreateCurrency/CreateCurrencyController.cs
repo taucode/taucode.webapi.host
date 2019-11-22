@@ -21,7 +21,7 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Currencies.CreateCurrency
             _queryRunner = queryRunner;
         }
 
-        [SwaggerOperation(Tags = new[] { "Currencies" })] // todo: description, here & anywhere
+        [SwaggerOperation(Tags = new[] { "Currencies" })]
         [SwaggerResponse(StatusCodes.Status200OK, "Currency has been created")]
         [SwaggerResponse(StatusCodes.Status400BadRequest, "Bad data for currency creation", typeof(ValidationErrorDto))]
         [SwaggerResponse(StatusCodes.Status409Conflict, "Failed to create currency")]

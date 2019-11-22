@@ -33,7 +33,6 @@ namespace TauCode.WebApi.Host.Tests
 
         internal static string BuildQueryString(this IDictionary<string, string> parameterDictionary)
         {
-            // todo: won't work with arrays and stuff
             var sb = new StringBuilder();
             var added = false;
 
@@ -142,8 +141,6 @@ namespace TauCode.WebApi.Host.Tests
 
         internal static void DoInTransaction(this ISession session, Action action)
         {
-            // todo: check args
-
             using (var tran = session.BeginTransaction())
             {
                 action();

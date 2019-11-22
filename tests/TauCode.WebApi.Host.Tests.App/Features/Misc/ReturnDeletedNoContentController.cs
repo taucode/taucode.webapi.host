@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
 
-namespace TauCode.WebApi.Host.Tests.App.Features.Misc.ReturnDeletedNoContent
+namespace TauCode.WebApi.Host.Tests.App.Features.Misc
 {
     [ApiController]
     public class ReturnDeletedNoContentController : ControllerBase
@@ -10,7 +9,7 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Misc.ReturnDeletedNoContent
         [Route("api/misc/deleted-no-content")]
         public IActionResult ReturnDeletedNoContent()
         {
-            throw new NotImplementedException();
+            return this.DeletedNoContent("deleted-id");
         }
     }
 }
