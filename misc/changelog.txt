@@ -26,3 +26,8 @@
 ==========
     Version: 3.2
     1. Release v3.2.
+
+2019-11-23
+==========
+    Version: 3.3
+    1. On its way to deprecated taucode.apps.
