@@ -18,7 +18,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Runtime" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.112" />
-    <PackageReference Include="TauCode.Db" Version="3.1.0-dev-2019-11-03-00-45" />
+    <PackageReference Include="TauCode.Db" Version="3.1.0-dev-2019-11-22-17-41" />
   </ItemGroup>
 
   <ItemGroup>
