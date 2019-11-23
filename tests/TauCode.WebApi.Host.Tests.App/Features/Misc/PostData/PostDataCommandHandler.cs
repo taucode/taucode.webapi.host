@@ -8,12 +8,14 @@ namespace TauCode.WebApi.Host.Tests.App.Features.Misc.PostData
     {
         public void Execute(PostDataCommand command)
         {
-            throw new System.NotImplementedException();
+            var greeting = $"Hello, {command.UserName}! Your birthday is {command.Birthday:yyyy-MM-dd}.";
+            command.SetResult(greeting);
         }
 
         public Task ExecuteAsync(PostDataCommand command, CancellationToken cancellationToken = new CancellationToken())
         {
-            throw new System.NotImplementedException();
+            this.Execute(command);
+            return Task.CompletedTask;
         }
     }
 }

@@ -14,7 +14,7 @@ namespace TauCode.WebApi.Host.Tests.App
 
         protected override void ConfigureContainerBuilder()
         {
-            var cqrsAssembly = this.GetType().Assembly;
+            var cqrsAssembly = typeof(Startup).Assembly;
             var containerBuilder = this.GetContainerBuilder();
 
             // command dispatching
