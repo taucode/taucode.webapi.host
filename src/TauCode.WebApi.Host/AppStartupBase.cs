@@ -52,10 +52,10 @@ namespace TauCode.WebApi.Host
                 .As<IAppStartup>()
                 .SingleInstance();
 
-            this.Container = _containerBuilder.Build();
+            _container = _containerBuilder.Build();
             _containerBuilder = null; // no more registrations
 
-            return new AutofacServiceProvider(this.Container);
+            return new AutofacServiceProvider(_container);
         }
 
         public abstract void Configure(IApplicationBuilder app);
@@ -64,32 +64,24 @@ namespace TauCode.WebApi.Host
 
         #region IAppStartup Members
 
-        public ContainerBuilder ContainerBuilder
+        public ContainerBuilder GetContainerBuilder()
         {
-            get
+            if (_containerBuilder == null)
             {
-                if (_containerBuilder == null)
-                {
-                    throw new InvalidOperationException($"'{nameof(ContainerBuilder)}' cannot be used at this moment.");
-                }
-
-                return _containerBuilder;
+                throw new InvalidOperationException("ContainerBuilder cannot be used at this moment.");
             }
-            private set => _containerBuilder = value;
+
+            return _containerBuilder;
         }
 
-        public IContainer Container
+        public IContainer GetContainer()
         {
-            get
+            if (_container == null)
             {
-                if (_container == null)
-                {
-                    throw new InvalidOperationException($"'{nameof(Container)}' cannot be used at this moment.");
-                }
-
-                return _container;
+                throw new InvalidOperationException("'Container cannot be used at this moment.");
             }
-            private set => _container = value;
+
+            return _container;
         }
 
         #endregion

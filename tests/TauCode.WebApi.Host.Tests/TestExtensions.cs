@@ -1,12 +1,9 @@
 ﻿using FluentValidation.Results;
 using Newtonsoft.Json;
-using NHibernate;
-using NHibernate.Cfg;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Reflection;
 using System.Text;
 using TauCode.Domain.Identities;
 
@@ -137,23 +134,6 @@ namespace TauCode.WebApi.Host.Tests
             Assert.That(failure.Message, Is.EqualTo(message));
 
             return validationError;
-        }
-
-        internal static void DoInTransaction(this ISession session, Action action)
-        {
-            using (var tran = session.BeginTransaction())
-            {
-                action();
-
-                tran.Commit();
-            }
-        }
-
-        internal static void AddTestNHibernate(
-            this IAppStartup startup,
-            Configuration configuration,
-            Assembly mappingsAssembly)
-        {
         }
     }
 }
