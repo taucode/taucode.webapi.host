@@ -5,8 +5,8 @@ namespace TauCode.WebApi.Host
 {
     public interface IAppStartup : IStartup
     {
-        ContainerBuilder ContainerBuilder { get; }
+        ContainerBuilder GetContainerBuilder();
 
-        IContainer Container { get; }
+        IContainer GetContainer();
     }
 }

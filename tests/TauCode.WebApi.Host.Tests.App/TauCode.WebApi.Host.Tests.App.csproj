@@ -6,19 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentNHibernate" Version="2.1.2" />
     <PackageReference Include="Inflector.NetStandard" Version="1.2.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
-    <PackageReference Include="TauCode.Cqrs.NHibernate" Version="3.0.0.1" />
-    <PackageReference Include="TauCode.Domain.NHibernate" Version="3.0.1-dev-2019-11-22-17-59" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\TauCode.WebApi.Host\TauCode.WebApi.Host.csproj" />
-    <ProjectReference Include="..\TauCode.WebApi.Host.Tests.Core\TauCode.WebApi.Host.Tests.Core.csproj" />
-    <ProjectReference Include="..\TauCode.WebApi.Host.Tests.Persistence\TauCode.WebApi.Host.Tests.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

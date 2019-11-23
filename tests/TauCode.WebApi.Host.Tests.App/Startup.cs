@@ -1,44 +1,65 @@
-﻿using Microsoft.AspNetCore.Builder;
-using NHibernate.Cfg;
-using System.IO;
+﻿using Autofac;
+using FluentValidation;
+using Microsoft.AspNetCore.Builder;
 using System.Reflection;
-using TauCode.Cqrs.NHibernate;
-using TauCode.Utils.Extensions;
-using TauCode.WebApi.Host.Tests.Core;
-using TauCode.WebApi.Host.Tests.Persistence;
+using TauCode.Cqrs.Autofac;
+using TauCode.Cqrs.Commands;
+using TauCode.Cqrs.Queries;
 
 namespace TauCode.WebApi.Host.Tests.App
 {
     public class Startup : AppStartupBase
     {
-        public string ConnectionString { get; private set; }
-
-        protected virtual Configuration CreateConfiguration()
-        {
-            var filePath = FileExtensions.CreateTempFilePath(extension:".sqlite");
-            File.WriteAllBytes(filePath, new byte[] { });
-
-            this.ConnectionString = $@"Data Source={filePath};Version=3;";
-
-            var configuration = new Configuration();
-            configuration.Properties.Add("connection.connection_string", this.ConnectionString);
-            configuration.Properties.Add("connection.driver_class", "NHibernate.Driver.SQLite20Driver");
-            configuration.Properties.Add("connection.provider", "NHibernate.Connection.DriverConnectionProvider");
-            configuration.Properties.Add("dialect", "NHibernate.Dialect.SQLiteDialect");
-
-            return configuration;
-        }
-
-        protected override Assembly GetValidatorsAssembly() => typeof(CoreBeacon).Assembly;
+        protected override Assembly GetValidatorsAssembly() => typeof(Startup).Assembly;
 
         protected override void ConfigureContainerBuilder()
         {
-            this.AddCqrs(typeof(CoreBeacon).Assembly, typeof(TransactionalCommandHandlerDecorator<>));
+            var cqrsAssembly = typeof(Startup).Assembly;
+            var containerBuilder = this.GetContainerBuilder();
 
-            var configuration = this.CreateConfiguration();
+            // command dispatching
+            containerBuilder
+                .RegisterType<CommandDispatcher>()
+                .As<ICommandDispatcher>()
+                .InstancePerLifetimeScope();
 
-            this.AddNHibernate(configuration, typeof(PersistenceBeacon).Assembly);
-            this.AddPersistence(typeof(PersistenceBeacon).Assembly);
+            containerBuilder
+                .RegisterType<AutofacCommandHandlerFactory>()
+                .As<ICommandHandlerFactory>()
+                .InstancePerLifetimeScope();
+
+            // register API ICommandHandler decorator
+            containerBuilder
+                .RegisterAssemblyTypes(cqrsAssembly)
+                .Where(t => t.IsClosedTypeOf(typeof(ICommandHandler<>)))
+                .AsImplementedInterfaces()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
+            // validators
+            containerBuilder
+                .RegisterAssemblyTypes(cqrsAssembly)
+                .Where(t => t.IsClosedTypeOf(typeof(AbstractValidator<>)))
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
+            // query handling
+            containerBuilder
+                .RegisterType<QueryRunner>()
+                .As<IQueryRunner>()
+                .InstancePerLifetimeScope();
+
+            containerBuilder
+                .RegisterType<AutofacQueryHandlerFactory>()
+                .As<IQueryHandlerFactory>()
+                .InstancePerLifetimeScope();
+
+            containerBuilder
+                .RegisterAssemblyTypes(cqrsAssembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IQueryHandler<>)))
+                .AsImplementedInterfaces()
+                .AsSelf()
+                .InstancePerLifetimeScope();
         }
 
         public override void Configure(IApplicationBuilder app)
