@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.WebApi.Host</id>
-    <version>3.3</version>
+    <version>3.4</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -10,7 +10,7 @@
     <projectUrl>http://taucode.com/</projectUrl>
     <description>TauCode Web API host support</description>
     <releaseNotes>
-      1. On its way to deprecated taucode.apps.
+      2. Host library simplified.
     </releaseNotes>
     <tags>taucode webapi host</tags>
     <dependencies>
@@ -23,7 +23,6 @@
       <dependency id="TauCode.Domain" version="3.0.0.1" />
       <dependency id="TauCode.Validation" version="3.0.0.1" />
       <dependency id="TauCode.WebApi" version="3.1.0" />
-
     </dependencies>
   </metadata>
   <files>
