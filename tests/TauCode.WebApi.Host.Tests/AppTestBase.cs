@@ -34,7 +34,7 @@ namespace TauCode.WebApi.Host.Tests
             var testServer = this.Factory.Factories.Single().Server;
 
             var startup = (Startup)testServer.Host.Services.GetService(typeof(IAppStartup));
-            this.Container = startup.Container;
+            this.Container = startup.GetContainer();
         }
 
         [OneTimeTearDown]
