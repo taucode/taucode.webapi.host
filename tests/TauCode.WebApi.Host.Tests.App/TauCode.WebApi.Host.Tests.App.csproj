@@ -10,6 +10,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="4.0.1" />
+    <PackageReference Include="TauCode.Cqrs.Autofac" Version="1.0.0-dev-2019-12-22-01-03" />
   </ItemGroup>
 
   <ItemGroup>
