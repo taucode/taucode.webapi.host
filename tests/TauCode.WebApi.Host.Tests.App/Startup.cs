@@ -64,7 +64,10 @@ namespace TauCode.WebApi.Host.Tests.App
 
         public override void Configure(IApplicationBuilder app)
         {
-            app.UseMvcWithDefaultRoute();
+            app.UseRouting();
+            app.UseEndpoints(endpoints => {
+                endpoints.MapControllers();
+            });
         }
     }
 }
