@@ -28,7 +28,7 @@ namespace TauCode.WebApi.Host
                 {
                     options.Filters.Add(new ValidationFilterAttribute(this.GetValidatorsAssembly()));
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+                .SetCompatibilityVersion(CompatibilityVersion.Latest);
         }
 
         protected abstract void ConfigureContainerBuilder();
