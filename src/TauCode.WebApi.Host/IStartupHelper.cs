@@ -7,9 +7,15 @@ namespace TauCode.WebApi.Host
     {
         void Init(IServiceCollection services);
 
-        // todo: to be used only by extensions.
+        /// <summary>
+        /// Don't build this container manually; use <see cref="Accomplish"/> instead.
+        /// </summary>
+        /// <returns>Current instance of <see cref="ContainerBuilder"/></returns>
         ContainerBuilder GetContainerBuilder();
 
+        /// <summary>
+        /// Finalizes helper by building its container.
+        /// </summary>
         void Accomplish();
 
         IContainer GetContainer();

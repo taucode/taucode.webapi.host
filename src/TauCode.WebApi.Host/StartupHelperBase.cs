@@ -11,14 +11,14 @@ namespace TauCode.WebApi.Host
         private IContainer _container;
 
         protected StartupHelperBase()
-        {   
+        {
         }
 
         public void Init(IServiceCollection services)
         {
             if (_containerBuilder != null)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Already initialized.");
             }
 
             _containerBuilder = new ContainerBuilder();
@@ -34,7 +34,7 @@ namespace TauCode.WebApi.Host
         {
             if (_container != null)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Cannot get container builder since the container is already built.");
             }
 
             return _containerBuilder;
@@ -44,12 +44,12 @@ namespace TauCode.WebApi.Host
         {
             if (_containerBuilder == null)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Not initialized.");
             }
 
             if (_container != null)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Container is already built.");
             }
 
             _container = _containerBuilder.Build();
@@ -59,7 +59,7 @@ namespace TauCode.WebApi.Host
         {
             if (_container == null)
             {
-                throw new NotImplementedException();
+                throw new InvalidOperationException("Container not built.");
             }
 
             return _container;
