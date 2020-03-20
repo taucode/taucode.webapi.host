@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using System.Globalization;
 using System.Linq;
 using System.Net.Http;
-using TauCode.WebApi.Host.Tests.App;
 
 namespace TauCode.WebApi.Host.Tests
 {
@@ -33,8 +33,8 @@ namespace TauCode.WebApi.Host.Tests
 
             var testServer = this.Factory.Factories.Single().Server;
 
-            var startup = (Startup)testServer.Host.Services.GetService(typeof(IAppStartup));
-            this.Container = startup.GetContainer();
+            var startupHelper = testServer.Host.Services.GetService<IStartupHelper>();
+            this.Container = startupHelper.GetContainer();
         }
 
         [OneTimeTearDown]
