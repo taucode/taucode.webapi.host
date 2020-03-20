@@ -120,9 +120,9 @@ namespace TauCode.WebApi.Host
 
                 // Inject the action arguments into the validator, so that they can be used in the validation
                 // This is a "hack" to, amongst other, support unique validation on the update commands where the resource id is needed to exclude itself from the unique check.
-                if (validator is IParameterValidator)
+                if (validator is IParameterValidator parameterValidator)
                 {
-                    ((IParameterValidator)validator).Parameters = actionContext.ActionArguments;
+                    parameterValidator.Parameters = actionContext.ActionArguments;
                 }
 
                 // Validate the argument

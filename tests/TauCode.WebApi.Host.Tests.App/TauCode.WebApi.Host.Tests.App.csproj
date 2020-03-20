@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.1.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="5.1.0" />
     <PackageReference Include="TauCode.Cqrs.Autofac" Version="1.0.0-dev-2020-03-16-00-45" />
   </ItemGroup>
 

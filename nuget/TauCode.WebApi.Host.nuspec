@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>TauCode.WebApi.Host</id>
-    <version>1.0.0.0-dev-2020-03-18-01-04</version>
+    <version>1.0.0.0-dev-2020-03-20-08-54</version>
     <authors>TauCode</authors>
     <owners>TauCode</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,7 +16,6 @@
     <dependencies>
       <group targetFramework=".NETStandard2.1">
         <dependency id="Autofac.Extensions.DependencyInjection" version="6.0.0" />
-        <dependency id="Microsoft.AspNetCore.Mvc" version="2.2.0" />
         <dependency id="Microsoft.AspNetCore.Mvc.Core" version="2.2.5" />
         <dependency id="TauCode.Cqrs" version="1.0.0-dev-2020-03-16-00-23" />
         <dependency id="TauCode.WebApi" version="1.0.0-dev-2020-03-15-23-43" />
